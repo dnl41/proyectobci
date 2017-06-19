@@ -23,16 +23,16 @@ Conector.start().then(() => {
 });
 
 Conector.stream((data) => {
-	(data.channelData[0])= (data.channelData[0]*1000).toFixed(4);
-	io.emit('bci:time',data)
-    //Signal.buffer(data);
+	//(data.channelData[0])= (data.channelData[0]*1).toFixed(4);
+	io.emit('bci:pura',data)
+  Signal.buffer(data);
     //Motion.capture(data);
     
-   console.log(data.channelData[0]);
-   var waitTill = new Date(new Date().getTime() + 100);
-  while(waitTill > new Date()){}
+  // console.log(data.channelData[0]);
+  // var waitTill = new Date(new Date().getTime() + 100);
+  //while(waitTill > new Date()){}
   	
-  console.log(data.channelData[0]);
+ // console.log(data.channelData[0]);
 });
 
 process.on('SIGINT', Conector.stop);

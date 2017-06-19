@@ -7,11 +7,13 @@ import { AppComponent } from './app.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
 
 import { ChartsModule } from 'ng2-charts';
+import { SignalComponent } from './signal/signal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    Grafica1Component
+    Grafica1Component,
+    SignalComponent
   ],
   imports: [
     BrowserModule,

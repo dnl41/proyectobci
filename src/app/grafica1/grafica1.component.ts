@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import * as io from 'socket.io-client';
-import { SmoothieChart, TimeSeries } from 'smoothie';
-//import { ChartService, Constants } from '../shared';
 
 @Component({
   selector: 'app-grafica1',
@@ -11,53 +9,54 @@ import { SmoothieChart, TimeSeries } from 'smoothie';
 export class Grafica1Component implements OnInit {
  
   socket: any;
+  dato1: string = "";
+  tamaño: number = 500;
 
   constructor() { 
   this.socket = io('http://localhost:8080')
 
   }
-
- // private options = this.chartService.getChartSmoothieDefaults();
-  //private channels = this.chartService.getChannels();
-  //private colors = this.chartService.getColors();
-
-  //private timeSeries = new SmoothieChart(this.options);
   private amplitudes = [];
   private timeline = [];
-  private lines = Array(8).fill(0).map(() => new TimeSeries());
-  //private dato1;
 
- public lineChartData:Array<any> = [
-    {data: new Array(600), label: 'Series A'}
+  public lineChartData:Array<any> = [
+    {data: new Array(this.tamaño)}
   ];
 
-
-  public lineChartLabels:Array<any> =  new Array(600);
+  public lineChartLabels:Array<any> =  new Array(this.tamaño);
     public lineChartOptions:any = {
     responsive: true
+
+
   };
+  
   public lineChartColors:Array<any> = [
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0)',
-      borderColor: 'rgba(59, 197, 224,6)',
-      pointBackgroundColor: 'rgba(148,159,177,0)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    { // 
+     backgroundColor: 'rgba(153,153,153,0)',
+     borderColor: 'rgba(0, 128, 255,7)',
+     pointBackgroundColor: 'rgba(148,159,177,0)',
+     pointBorderColor: '#0080ff',
+     pointHoverBackgroundColor: '#0080ff',
+     pointHoverBorderColor: 'rgba(0, 128, 255,0)'
     },
   ];
    
   public lineChartLegend:boolean = false;
   public lineChartType:string = 'line';
 
-   dato1: string = "";
+
+   
 
   ngOnInit() {
     console.log(this.lineChartData[0].data.length);
+    this.socket.on('bci:pura', (signal) => {
+    this.dato1 = signal.channelData[0];
+
+    });
     
   	this.socket.on('bci:time', (signal) => {
+     
       
-      this.dato1 = signal.channelData[0];
       let _lineChartData:Array<any> = new Array(this.lineChartData.length);
 
       for (let i = 0; i < this.lineChartData.length; i++) {
@@ -65,7 +64,7 @@ export class Grafica1Component implements OnInit {
          for (let j = this.lineChartData[0].data.length - 1; j > 0; j--) {
            _lineChartData[i].data[j-1]=this.lineChartData[i].data[j];
       }
-      _lineChartData[i].data[600] = signal.channelData[0];
+      _lineChartData[i].data[this.tamaño] = signal.amplitudes[0];
     }
     this.lineChartData = _lineChartData;
     });
