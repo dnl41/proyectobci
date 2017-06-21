@@ -1,6 +1,13 @@
-<h1>
-  {{title}}
-</h1>
+<h1 class="title center-block">{{title}}</h1> 
+<main>
 
-<app-grafica1></app-grafica1>
-<!--app-signal></app-signal-->
+ <app-filtros></app-filtros>
+ <section class="content">
+  <nav>
+      <button (click)="clicked()">Inicio</button>
+      <button (click)="clicked2()">Detener</button>
+     <app-grafica1></app-grafica1>
+  </nav>
+
+</section>
+</main>

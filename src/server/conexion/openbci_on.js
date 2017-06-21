@@ -41,7 +41,7 @@ module.exports = class Openbci_on  extends OpenBCIBoard {
    stop () {
         this.streamStop().then(() => {
             this.disconnect().then(() => {
-                process.exit();
+               // process.exit();
             });
         });
     }

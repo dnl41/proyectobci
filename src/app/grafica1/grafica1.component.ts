@@ -6,8 +6,12 @@ import * as io from 'socket.io-client';
   templateUrl: './grafica1.component.html',
   styleUrls: ['./grafica1.component.css']
 })
+
+
 export class Grafica1Component implements OnInit {
- 
+
+
+
   socket: any;
   dato1: string = "";
   tamaño: number = 500;
@@ -16,10 +20,16 @@ export class Grafica1Component implements OnInit {
   this.socket = io('http://localhost:8080')
 
   }
+
+ 
+
   private amplitudes = [];
   private timeline = [];
 
   public lineChartData:Array<any> = [
+    {data: new Array(this.tamaño)}
+  ];
+  public lineChartData2:Array<any> = [
     {data: new Array(this.tamaño)}
   ];
 
@@ -67,17 +77,14 @@ export class Grafica1Component implements OnInit {
       _lineChartData[i].data[this.tamaño] = signal.amplitudes[0];
     }
     this.lineChartData = _lineChartData;
+
+
     });
     
    
   }
 
-  public randomize():void {
-
  
-    
-
-  }
   
  
   // events

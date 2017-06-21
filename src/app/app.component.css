@@ -1,0 +1,21 @@
+
+  .selected {
+    background-color: #CFD8DC !important;
+    color: white;
+  }
+  main {
+  display: flex;
+}
+nav {
+  margin-left: 20px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-right: 200px;
+}
+
+.content {
+  width: 100%;
+}
+.title{
+  float: none;
+  }
