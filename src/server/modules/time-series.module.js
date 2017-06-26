@@ -50,7 +50,7 @@ module.exports = class TimeSeries {
     signalToAmplitudes (signal) {
         this.amplitudes = signal.map((channel) => {
             let microvolts = Utils.signal.voltsToMicrovolts(channel[channel.length - 1])[0];
-            return `${Math.round(microvolts)} ${constants.units.microvolts}`;
+            return `${Math.round(microvolts)} `;
         });
     }
     

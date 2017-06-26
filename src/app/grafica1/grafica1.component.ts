@@ -58,7 +58,7 @@ export class Grafica1Component implements OnInit {
    
 
   ngOnInit() {
-    console.log(this.lineChartData[0].data.length);
+   // console.log(this.lineChartData[0].data.length);
     this.socket.on('bci:pura', (signal) => {
     this.dato1 = signal.channelData[0];
 

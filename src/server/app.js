@@ -4,16 +4,17 @@
 const io = require('socket.io')(process.env.app_port || 8080);
 
 //const Connectors = require('./connectors');
-const EnvioSeñal = require('./EnvioSeñal');
 const Modules = require('./modules'); 
 var Conectores = require('./conexion');
+const Providers = require('./providers');
+const Envio = require('./Envio');
 
 var Conector = new Conectores.Openbci_on ({
        verbose: true
 });
 
 
-const Signal = new EnvioSeñal.Signal({ io });
+const Signal = new Envio.Signal({ io });
 //const Motion = new Providers.Motion({ io });
 
 io.on('connection', function(client){

@@ -1,11 +1,12 @@
-<section class="frequency-band" [ngClass]="{ 'loading': !data }">
-    <h2 class="capitalize">{{ band }} {{ type }}</h2>
-     <base-chart class="chart"
-      [datasets]="data"
-      [labels]="channels"
-      [options]="options"
-      [colors]="colors"
-      [legend]="false"
-      [chartType]="type">
-    </base-chart>
-</section>
+<div>
+  <div style="display: block">
+    <canvas baseChart
+            [datasets]="data"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+  </div>
+</div>
