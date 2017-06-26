@@ -23,7 +23,7 @@ export class Constantes {
       options: [
         {
           id: 'NOTCH:NONE',
-          label: 'None'
+          label: 'Ninguno'
         },
         {
           id: 'NOTCH:60',
@@ -44,7 +44,7 @@ export class Constantes {
       options: [
          {
           id: 'BANDPASS:NONE',
-          label: 'None'
+          label: 'Ninguno'
         },
         {
           id: 'BANDPASS:1-50',
@@ -73,7 +73,7 @@ export class Constantes {
       options: [
         {
           id: 'VERTSCALE:NONE',
-          label: 'None'
+          label: 'Ninguno'
         },    
         {
           id: 'VERTSCALE:50',
@@ -119,7 +119,7 @@ export class Constantes {
           
       ]
     },
-    { 
+    /*{ 
       id: 'SMOOTH', 
       label: 'Smooth',
       type: 'single',
@@ -190,7 +190,7 @@ export class Constantes {
           label: '40 Hz'
         }
       ]
-    }
+    }*/
   ];
 
 }

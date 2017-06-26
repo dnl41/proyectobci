@@ -14,7 +14,7 @@ export class Grafica1Component implements OnInit {
 
   socket: any;
   dato1: string = "";
-  tamaño: number = 500;
+  tamaño: number = 600;
 
   constructor() { 
   this.socket = io('http://localhost:8080')

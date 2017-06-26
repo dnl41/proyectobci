@@ -2,19 +2,19 @@
 
 const topogrid = require('topogrid');
 const Utils = require('../utils');
-//const constants = require('../constants');
+const constants = require('../constants');
 
 module.exports = class Topo {
     
     constructor ({ Signal }) {
         this.signal = Signal;
-        this.sampleRate = 256;
+        this.sampleRate = constants.signal.sampleRate;
         this.grid = [];
         this.subscribe();
     }
     
     subscribe () {
-        this.signal.emitter.on('bci:signal', (signal) => {     
+        this.signal.emitter.on(constants.events.signal, (signal) => {     
             this.signalToGrid(signal);
             this.emit();
         });
@@ -44,7 +44,7 @@ module.exports = class Topo {
     }
     
     emit () {
-        this.signal.io.emit('bci:topo', {
+        this.signal.io.emit(constants.events.topo, {
             data: this.grid
         });   
     }

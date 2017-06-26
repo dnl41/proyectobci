@@ -2,16 +2,16 @@
 
 const dsp = require('dsp.js');
 const Utils = require('../utils');
-//const constants = require('../constants');
+const constants = require('../constants');
 
 module.exports = class FFT {
     
     constructor ({ Signal }) {
         this.signal = Signal;
-        this.bins = 256;
-        this.bufferSize = 256;
-        this.sampleRate = 250;
-        this.bands = {delta: [1, 3], theta: [4, 8], alpha: [8, 12], beta: [13, 30], gamma: [30, 100]};
+        this.bins = constants.fft.bins;
+        this.bufferSize = constants.signal.bufferSize;
+        this.sampleRate = constants.signal.sampleRate;
+        this.bands = constants.bands;
         this.spectrums = [[],[],[],[],[],[],[],[]];
         this.byBand = [];
         this.labels = [];
@@ -19,7 +19,7 @@ module.exports = class FFT {
     }
         
     subscribe () {
-        this.signal.emitter.on('bci:signal', (signals) => {        
+        this.signal.emitter.on(constants.events.signal, (signals) => {        
             this.signalsToFFT(signals);
             this.scaleLabels();
             this.filterBands();
@@ -54,14 +54,14 @@ module.exports = class FFT {
     filterLabels () {
         // Skip every 8, add uni (too many labels issue)
         this.labels = this.labels.map((label, index, labels) => {
-            let eighth = index % 4 === 0;
+            let eighth = index % constants.scale.skipLabels === 0;
             let last = index === (labels.length - 1);
             return eighth || last ? `${label} ${constants.units.hertz}` : ``;
         });
     }
     
     emit () {
-        this.signal.io.emit('bci:fft', {
+        this.signal.io.emit(constants.events.fft, {
             data: this.spectrums,
             labels: this.labels,
             theta: this.byBand.theta.spectrums,

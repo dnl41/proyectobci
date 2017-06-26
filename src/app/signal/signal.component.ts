@@ -37,7 +37,7 @@ export class SignalComponent implements OnInit {
  
 
 
-  	this.socket.on('bci:time', (signal) => {
+  	this.socket.on('bci:fft', (signal) => {
     console.log(signal);
      
       this.dato1 = signal.amplitudes[0];

@@ -7,10 +7,10 @@
   display: flex;
 }
 nav {
-  margin-left: 20px;
+  margin-left: 100px;
   margin-bottom: 20px;
   margin-top: 10px;
-  margin-right: 200px;
+  margin-right: 300px;
 }
 nav a {
   appearance: none;
@@ -36,4 +36,5 @@ nav a {
 }
 .title{
   float: none;
+  margin-left: 420px;
   }

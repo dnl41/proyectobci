@@ -1,23 +1,23 @@
 'use strict';
 
 const Utils = require('../utils');
-//const constants = require('../constants');
+const constants = require('../constants');
 
 module.exports = class TimeSeries {
     
     constructor ({ Signal }) {
         this.signal = Signal;
-        this.sampleRate = 250;
-        this.bufferSize = 256;
-        this.windowSize = 32;
-        this.timeline = Utils.data.generateTimeline(20, 2, 's');
+        this.sampleRate = constants.signal.sampleRate;
+        this.bufferSize = constants.signal.bufferSize;
+        this.windowSize = constants.signal.windowSize;
+        this.timeline = Utils.data.generateTimeline(constants.time.timeline, constants.time.skip, constants.units.seconds);
         this.timeSeries = [];
         this.amplitudes = [];
         this.subscribe();
     }
     
     subscribe () {
-        this.signal.emitter.on('bci:signal', (signal) => {  
+        this.signal.emitter.on(constants.events.signal, (signal) => {  
             this.timeSeries = signal;
             this.filter();
             this.offset();
@@ -30,7 +30,7 @@ module.exports = class TimeSeries {
     offset () {
         this.timeSeries = this.timeSeries.map((channel, channelIndex) => {
             return channel.map((amplitude) => {
-                return Utils.signal.offsetForGrid(amplitude, channelIndex, 8, this.signal.scale); 
+                return Utils.signal.offsetForGrid(amplitude, channelIndex, constants.connector.channels, this.signal.scale); 
             });
         });
     }
@@ -50,13 +50,12 @@ module.exports = class TimeSeries {
     signalToAmplitudes (signal) {
         this.amplitudes = signal.map((channel) => {
             let microvolts = Utils.signal.voltsToMicrovolts(channel[channel.length - 1])[0];
-           // return `${Math.round(microvolts)} ${'uV'}`;
-           return `${Math.round(microvolts)} `;
+            return `${Math.round(microvolts)} ${constants.units.microvolts}`;
         });
     }
     
     emit () {
-        this.signal.io.emit('bci:time', {
+        this.signal.io.emit(constants.events.time, {
             data: this.timeSeries,
             amplitudes: this.amplitudes,
             timeline: this.timeline

@@ -21,7 +21,7 @@ io.on('connection', function(client){
     if (data=='inicio') {
 
       Conector.start().then(() => {
-         //const FFT = new Modules.FFT({ Signal });
+         const FFT = new Modules.FFT({ Signal });
          //const Topo = new Modules.Topo({ Signal });
          const TimeSeries = new Modules.TimeSeries({ Signal });
       });
@@ -39,6 +39,7 @@ io.on('connection', function(client){
       });
       console.log(data);
     } 
+    
     if (data=='detener') {
        console.log(data);
        Conector.stop();

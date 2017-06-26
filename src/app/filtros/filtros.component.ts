@@ -22,6 +22,14 @@ export class FiltrosComponent {
     this.socket.emit('bci:filter',filter);
   } 
 
+  clicked(event) {
+    this.socket.emit('openbci',"inicio");  
+  }
+  clicked2(event) {
+    this.socket.emit('openbci',"detener");  
+    console.log("detener")
+  }
+
 
 
 

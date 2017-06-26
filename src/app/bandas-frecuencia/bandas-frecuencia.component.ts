@@ -1,17 +1,21 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { ChartsModule } from 'ng2-charts';
 import * as io from 'socket.io-client';
-import { ChartService } from '../shared/chart.service';
+import { Constantes } from '../constantes/constantes';
+import { ChartService } from '../constantes/chart.service';
+import { CHART_DIRECTIVES } from '../base-chart/base-chart.component';
 
 @Component({
-  selector: 'app-banda',
-  templateUrl: './banda.component.html',
-  styleUrls: ['./banda.component.css']
+  selector: 'app-bandas-frecuencia',
+  templateUrl: './bandas-frecuencia.component.html',
+  styleUrls: ['./bandas-frecuencia.component.css']
 })
-export class BandaComponent implements OnInit {
+export class BandasFrecuenciaComponent implements OnInit {
    socket: any;
-  constructor(private chartService: ChartService) {
-  this.socket = io('http://localhost:8080'); }
+  constructor(private chartService: ChartService, 
+              private constants: Constantes) { 
+    this.socket = io(constants.socket.url);
+  }
+
   @Input() public type:string;
   @Input() public band:string;
   @Input() public color:number;
@@ -23,7 +27,7 @@ export class BandaComponent implements OnInit {
   
   ngOnInit() {
     this.colors = this.chartService.getColorByIndex(this.color);
-    this.socket.on('bci:fft', (data) => {
+    this.socket.on(this.constants.socket.events.fft, (data) => {
       this.data = [];
       data[this.band || 'data'].forEach((dataset, index) => {
         this.data.push({
@@ -34,6 +38,8 @@ export class BandaComponent implements OnInit {
   }
   
   ngOnDestroy () {
-    this.socket.removeListener('bci:fft');
+    this.socket.removeListener(
+      this.constants.socket.events.fft
+    );
   } 
 }

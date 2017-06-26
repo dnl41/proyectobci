@@ -1,15 +1,12 @@
-import {
-  Component, OnDestroy, OnInit, OnChanges, EventEmitter, ElementRef, Input,
-  Output
-} from '@angular/core';
-
+import {Component, OnDestroy, OnInit, OnChanges, EventEmitter, ElementRef, Input, Output} from '@angular/core';
 
 declare var Chart:any;
-
 @Component({
   selector: 'base-chart',
-  template: `<canvas style="width: 100%; height: 100%;"></canvas>`
+  templateUrl: './base-chart.component.html',
+  styleUrls: ['./base-chart.component.css']
 })
+
 export class BaseChartComponent implements OnDestroy, OnChanges, OnInit {
   public static defaultColors:Array<number[]> = [
     [255, 99, 132],
