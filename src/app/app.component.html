@@ -1,13 +1,19 @@
+<head>
+  <base href="/">
+</head>
 <h1 class="title center-block">{{title}}</h1> 
 <main>
 
  <app-filtros></app-filtros>
  <section class="content">
   <nav>
+      <a routerLink="/Tiempo">Tiempo</a>
+      <a routerLink="/Frecuencia">Frecuencia</a> 
+  </nav>
+      <router-outlet></router-outlet>
       <button (click)="clicked()">Inicio</button>
       <button (click)="clicked2()">Detener</button>
-     <app-grafica1></app-grafica1>
-  </nav>
+      
 
 </section>
 </main>

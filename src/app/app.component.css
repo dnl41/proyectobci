@@ -12,6 +12,24 @@ nav {
   margin-top: 10px;
   margin-right: 200px;
 }
+nav a {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: transparent;
+  color: #000;
+
+  padding: 8px 20px;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 1px;
+  margin-right: 2px;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  display: inline-block;
+}
 
 .content {
   width: 100%;

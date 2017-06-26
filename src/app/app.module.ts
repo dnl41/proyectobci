@@ -10,7 +10,14 @@ import { Grafica1Component } from './grafica1/grafica1.component';
 import { ChartsModule } from 'ng2-charts';
 import { SignalComponent } from './signal/signal.component';
 import { FiltrosComponent } from './filtros/filtros.component';
+import { RouterModule, Routes } from '@angular/router';
 
+const routes: Routes = [
+  { path: 'Tiempo', component: Grafica1Component},
+  { path: 'Tiempo2', component: SignalComponent},
+  { path: 'Frecuencia', component: SignalComponent},
+
+];
 
 @NgModule({
   declarations: [
@@ -23,7 +30,8 @@ import { FiltrosComponent } from './filtros/filtros.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    ChartsModule
+    ChartsModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [Constantes],
   bootstrap: [AppComponent]
