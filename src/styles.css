@@ -1,1 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
+.large-padding{
+   padding: 8px 100px;
+}
+.black{
+  background-color: #222;
+}
+.white-text{
+  color: white;
+}
+nav{
+  text-align: left;
+}
+nav ul li{
+  display: inline-block;
+  margin-right: 1em;
+  font-size: 1.1em
+}
+
+nav ul a{
+  color: white;
+}
+nav ul a:hover{
+  color: white;
+}
+
+.white{
+  background-color: white;
+}
+
+.border{
+  border:solid 1px #eee;
+}
+
+.tr:nth-of-type(odd){
+  background-color: #eee
+}
+.selected {
+    background-color: #CFD8DC !important;
+    color: white;
+}

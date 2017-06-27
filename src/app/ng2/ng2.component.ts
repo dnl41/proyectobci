@@ -1,16 +1,17 @@
 import {
-  Directive, Component, OnDestroy, OnInit, OnChanges, EventEmitter, ElementRef, Input,
+  Component, OnDestroy, OnInit, OnChanges, EventEmitter, ElementRef, Input,
   Output
 } from '@angular/core';
+import {NgClass} from '@angular/common';
 
 declare var Chart:any;
 
-
- 
-@Directive({ selector: 'base-app' })
-  
-export class BaseChartComponent implements OnDestroy, OnChanges, OnInit {
-  public static defaultColors:Array<number[]> = [
+@Component({
+  selector: 'app-basechart',
+  template: '<canvas style="width: 100%; height: 100%;"></canvas>'
+})
+export class Ng2Component implements OnDestroy, OnChanges, OnInit  {
+    public static defaultColors:Array<number[]> = [
     [255, 99, 132],
     [54, 162, 235],
     [255, 206, 86],
@@ -147,7 +148,6 @@ export class BaseChartComponent implements OnDestroy, OnChanges, OnInit {
   }
 }
 
-// private helper functions
 export interface Color {
   backgroundColor?:string | string[];
   borderWidth?:number | number[];
@@ -239,7 +239,7 @@ function getRandomColor():number[] {
  * @returns {number[]|Color}
  */
 function generateColor(index:number):number[] {
-  return BaseChartComponent.defaultColors[index] || getRandomColor();
+  return Ng2Component.defaultColors[index] || getRandomColor();
 }
 
 /**
@@ -250,7 +250,7 @@ function generateColor(index:number):number[] {
 function generateColors(count:number):Array<number[]> {
   let colorsArr:Array<number[]> = new Array(count);
   for (let i = 0; i < count; i++) {
-    colorsArr[i] = BaseChartComponent.defaultColors[i] || getRandomColor();
+    colorsArr[i] = Ng2Component.defaultColors[i] || getRandomColor();
   }
   return colorsArr;
 }
@@ -281,4 +281,6 @@ function getColors(chartType:string, index:number, count:number):Color {
   return generateColor(index);
 }
 
-export const CHART_DIRECTIVES:Array<any> = [BaseChartComponent];
+export const CHART_DIRECTIVES:Array<any> = [Ng2Component];
+
+

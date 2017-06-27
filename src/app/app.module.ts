@@ -8,7 +8,7 @@ import { ChartService} from './shared';
 import { AppComponent } from './app.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
 
-import { ChartsModule } from 'ng2-charts';
+import { ChartsModule} from 'ng2-charts';
 import { SignalComponent } from './signal/signal.component';
 import { FiltrosComponent } from './filtros/filtros.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -16,7 +16,8 @@ import { BandasFrecuenciaComponent } from './bandas-frecuencia/bandas-frecuencia
 import { GraficaFrecuenciaComponent } from './grafica-frecuencia/grafica-frecuencia.component';
 import { GraficaTiempoComponent } from './grafica-tiempo/grafica-tiempo.component';
 import { BandaFrecuenciaComponent } from './banda-frecuencia/banda-frecuencia.component';
-
+import { BaseChartDirective} from 'ng2-charts';
+import { CHART_DIRECTIVES} from './ng2/ng2.component';
 
 
 const routes: Routes = [
@@ -39,8 +40,8 @@ const routes: Routes = [
     GraficaTiempoComponent,
     GraficaTiempoComponent,
     BandaFrecuenciaComponent,
-    BandaFrecuenciaComponent
-
+    BandaFrecuenciaComponent,
+    CHART_DIRECTIVES
   ],
   imports: [
     BrowserModule,
@@ -50,6 +51,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   providers: [Constantes, ChartService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }

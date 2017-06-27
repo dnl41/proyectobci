@@ -1,0 +1,68 @@
+import { Component, ElementRef, OnInit, OnDestroy, Input } from '@angular/core';
+import * as io from 'socket.io-client';
+import { ChartService, Constants } from '../shared';
+//import { BaseChartDirective} from 'ng2-charts';
+
+
+@Component({
+  selector: 'app-grafica-frecuencia',
+  templateUrl: './grafica-frecuencia.component.html',
+  styleUrls: ['./grafica-frecuencia.component.css'],
+})
+export class GraficaFrecuenciaComponent implements OnInit {
+  
+socket: any;
+ public barChartOptions:any = {
+    scaleShowVerticalLines: false,
+    responsive: true
+  };
+  
+  constructor(private chartService: ChartService,) {
+    this.socket = io('http://localhost:8080');
+    //this.options = this.chartService.getChartJSLineDefaults();
+
+  }
+ private colors:Array<any> = this.chartService.getColors();
+ private data:Array<any> = [[],[],[],[],[],[],[],[]]
+
+ private channels:Array<string> = this.chartService.getChannels();
+ 
+
+ public lineChartData:Array<any> = [
+    [65, 59, 80, 81, 56, 55, 40]
+  ];
+  private lineChartLabels:Array<any> = ["0 Hz", "", "", "", "4 Hz", "", "", "", "8 Hz", "", "", "", "12 Hz",
+   "", "", "", "16 Hz", "", "", "", "20 Hz", "", "", "", "24 Hz", "", "", "", "28 Hz", "", "", "", "32 Hz",
+    "", "", "", "36 Hz", "", "", "", "40 Hz", "", "", "", "44 Hz", "", "", "", "48 Hz", "", "", "", "52 Hz", 
+    "", "", "", "56 Hz", "", "", "", "60 Hz", "", "", "", "64 Hz", "", "", "", "68 Hz", "", "", "", "72 Hz", 
+    "", "", "", "76 Hz", "", "", "", "80 Hz", "", "", "", "84 Hz", "", "", "", "88 Hz", "", "", "", "92 Hz",
+    "", "", "", "96 Hz", "", "", "","100", "", "", "", "104 Hz", "", "", "", "108 Hz", "", "", "", "112 Hz", "",
+    "", "", "116 Hz", "", "", "", "120 Hz", "", "", "", "124 Hz", "", "", ""];
+
+
+
+  public lineChartType:string = 'line';
+
+
+  public randomizeType():void {
+  }
+
+  ngOnInit(){
+  	this.socket.on('bci:fft', (data) => {
+  	//console.log(data);
+      this.data = [];
+      data.data.forEach((dataset, index) => {
+        this.data.push({
+          data: dataset,
+          label: this.channels[index],
+          //borderWidth: 1,
+          //pointRadius: 0,
+          //fill: false
+        });
+      });
+      console.log(this.data);
+    });
+  }
+
+
+}

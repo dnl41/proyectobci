@@ -4,7 +4,6 @@ import { SmoothieChart, TimeSeries } from 'smoothie';
 import { ChartService, Constants } from '../shared';
 import * as io from 'socket.io-client';
 
-
 @Component({
   selector: 'app-grafica-tiempo',
   templateUrl: './grafica-tiempo.component.html',

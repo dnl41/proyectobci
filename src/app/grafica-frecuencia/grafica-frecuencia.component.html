@@ -1,15 +1,6 @@
-<!--script src="node_modules/chart.js/src/chart.js"></script>
-<section class="frequency" [ngClass]="{ 'loading': !data }">
-    <h2>Frequency {{ type }}</h2>
-       <canvas baseChart width="400" height="400"
-                [datasets]="data"
-                [labels]="labels"
-                [options]="options"
-                [colors]="colors"
-                [legend]="channels"
-                [chartType]="type"
-                ></canvas>
-    </div>
-
- 
-</section-->
+<app-basechart class="chart"
+       [datasets]="data"
+      [labels]="labels"
+      [options]="options"
+      [colors]="colors"
+      [chartType]="type"></app-basechart>

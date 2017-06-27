@@ -15,7 +15,7 @@ export class Hero {
 
 
 export class AppComponent {
-  title = 'PROYECTO BCI';
+  title = 'SISTEMA BCI';
   selectedHero: Hero;
 }
 

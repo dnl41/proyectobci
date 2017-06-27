@@ -1,0 +1,10 @@
+<h2 class="capitalize">{{ band }}</h2>
+<div style="display: block">
+       <canvas baseChart class="chart"
+      [datasets]="data"
+      [labels]="channels"
+      [options]="options"
+      [colors]="colors"
+      [legend]="false"
+      [chartType]="type"></canvas>
+  </div>

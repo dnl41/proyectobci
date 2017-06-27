@@ -1,12 +1,9 @@
-<div>
-  <div style="display: block">
-    <canvas baseChart
-            [datasets]="data"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
-            [chartType]="barChartType"
-            (chartHover)="chartHovered($event)"
-            (chartClick)="chartClicked($event)"></canvas>
-  </div>
-</div>
+<section>
+  <app-banda-frecuencia type="bar" band="delta" [color]="1"></app-banda-frecuencia>
+  <app-banda-frecuencia type="bar" band="theta" [color]="2"></app-banda-frecuencia>
+</section>
+<section>
+  <app-banda-frecuencia type="bar" band="alpha" [color]="3"></app-banda-frecuencia>
+  <app-banda-frecuencia type="bar" band="beta" [color]="4"></app-banda-frecuencia>
+  <app-banda-frecuencia type="bar" band="gamma" [color]="5"></app-banda-frecuencia>
+</section>

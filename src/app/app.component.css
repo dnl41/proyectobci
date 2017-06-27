@@ -1,16 +1,27 @@
 
-  .selected {
+.white{
+  background-color: white;
+}
+
+.border{
+  border:solid 1px #eee;
+}
+
+.tr:nth-of-type(odd){
+  background-color: #eee
+}
+.selected {
     background-color: #CFD8DC !important;
     color: white;
-  }
-  main {
-  display: flex;
+}
+main {
+ display: flex;
 }
 nav {
-  margin-left: 100px;
-  margin-bottom: 20px;
+  margin-left: 10px;
+  margin-bottom: 10px;
   margin-top: 10px;
-  margin-right: 300px;
+  margin-right: 30px;
 }
 nav a {
   appearance: none;
@@ -35,6 +46,6 @@ nav a {
   width: 100%;
 }
 .title{
-  float: none;
   margin-left: 420px;
+  text-align: left;
   }
