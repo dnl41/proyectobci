@@ -1,8 +1,6 @@
-import { Component, ElementRef } from '@angular/core';
-import { OnInit, OnDestroy } from '@angular/core';
-import { SmoothieChart, TimeSeries } from 'smoothie';
-import { ChartService, Constants } from '../shared';
+import { Component, ElementRef, OnInit, OnDestroy, Input } from '@angular/core';
 import * as io from 'socket.io-client';
+import { ChartService, Constants } from '../shared';
 
 
 @Component({
@@ -11,54 +9,44 @@ import * as io from 'socket.io-client';
   styleUrls: ['./grafica-frecuencia.component.css']
 })
 export class GraficaFrecuenciaComponent implements OnInit, OnDestroy {
-   socket: any;
-  constructor(private view: ElementRef,
-  	          private chartService: ChartService) { 
-      this.socket = io('http://localhost:8080');
-     this.chartService = chartService;}
+  
+ socket: any;
+  
+  constructor(private chartService: ChartService,
+              private constants: Constants) {
+    this.socket = io(constants.socket.url);
+    this.options = this.chartService.getChartJSLineDefaults();
 
-  private options = this.chartService.getChartSmoothieDefaults();
-  private channels = this.chartService.getChannels();
-  private colors = this.chartService.getColors();
-  private timeSeries = new SmoothieChart(this.options);
-  private amplitudes = [];
-  private timeline = [];
-  private lines = Array(8).fill(0).map(() => new TimeSeries());
+  }
 
- ngOnInit() {
-    this.addTimeSeriesLines();
-        
-    this.socket.on('bci:time', (data) => {
-      this.amplitudes = data.amplitudes;
-      this.timeline = data.timeline;
-      this.appendTimeSeriesLines(data.data);
+  private data:Array<any> = Array(8).fill(0).map(() => { return { data: [], label: [] } });
+  private labels:Array<any> = [];
+  private colors:Array<any> = this.chartService.getColors();
+  private channels:Array<string> = this.chartService.getChannels();
+  private options:any;
+
+  ngOnInit() {    
+    this.socket.on(this.constants.socket.events.fft, (data) => {
+      this.data = [];
+      data.data.forEach((dataset, index) => {
+        this.data.push({
+          data: dataset,
+          label: this.channels[index],
+          borderWidth: 1,
+          pointRadius: 0,
+          fill: false
+        });
+      });
+      this.labels = data.labels;
     });
   }
   
   ngOnDestroy () {
-    this.socket.removeListener('bci:time');
+    this.socket.removeListener(
+      this.constants.socket.events.fft
+    );
   } 
   
-  ngAfterViewInit () {
-    this.timeSeries.streamTo(
-      this.view.nativeElement.querySelector('#timeSeries')
-    );
-  }
-  
-  addTimeSeriesLines () {
-    this.lines.forEach((line, index) => {
-        this.timeSeries.addTimeSeries(line, { 
-          strokeStyle: this.colors[index].borderColor 
-        });
-    });
-  }
-  
-  appendTimeSeriesLines (data) {
-    this.lines.forEach((line, index) => {
-          data[index].forEach((amplitude) => {
-              line.append(new Date().getTime(), amplitude);
-          });
-      });
-  }
+
 
 }

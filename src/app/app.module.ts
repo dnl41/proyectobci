@@ -12,14 +12,15 @@ import { ChartsModule } from 'ng2-charts';
 import { SignalComponent } from './signal/signal.component';
 import { FiltrosComponent } from './filtros/filtros.component';
 import { RouterModule, Routes } from '@angular/router';
-import { BaseChartComponent } from './base-chart/base-chart.component';
 import { BandasFrecuenciaComponent } from './bandas-frecuencia/bandas-frecuencia.component';
 import { GraficaFrecuenciaComponent } from './grafica-frecuencia/grafica-frecuencia.component';
+import { GraficaTiempoComponent } from './grafica-tiempo/grafica-tiempo.component';
+import { BandaFrecuenciaComponent } from './banda-frecuencia/banda-frecuencia.component';
 
 
 
 const routes: Routes = [
-  { path: '', component: Grafica1Component},
+  { path: '', component: GraficaTiempoComponent},
   { path: 'Tiempo2', component: SignalComponent},
   { path: 'Frecuencia', component: GraficaFrecuenciaComponent},
   { path: 'Bandas', component: BandasFrecuenciaComponent}
@@ -32,10 +33,13 @@ const routes: Routes = [
     Grafica1Component,
     SignalComponent,
     FiltrosComponent,
-    BaseChartComponent,
     BandasFrecuenciaComponent,
     BandasFrecuenciaComponent,
-    GraficaFrecuenciaComponent
+    GraficaFrecuenciaComponent,
+    GraficaTiempoComponent,
+    GraficaTiempoComponent,
+    BandaFrecuenciaComponent,
+    BandaFrecuenciaComponent
 
   ],
   imports: [

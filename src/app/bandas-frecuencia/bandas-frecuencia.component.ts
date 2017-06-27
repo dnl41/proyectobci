@@ -2,7 +2,6 @@ import { Component, OnInit,Input } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Constantes } from '../constantes/constantes';
 import { ChartService } from '../constantes/chart.service';
-import { CHART_DIRECTIVES } from '../base-chart/base-chart.component';
 
 @Component({
   selector: 'app-bandas-frecuencia',

@@ -134,7 +134,7 @@ export class ChartService {
     return Object.assign({
         millisPerLine: 3000,
         grid: {
-            fillStyle: '#333333',
+            fillStyle: '#FFFFFF',
             strokeStyle: 'rgba(0,0,0,0.1)',
             sharpLines: false,
             verticalSections: this.getChannels().length,
