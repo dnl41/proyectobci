@@ -3,6 +3,5 @@
 const Signal = require('./signal.provider');
 
 module.exports = {
-    Signal,
-    Motion
+    Signal
 }
