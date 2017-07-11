@@ -13,7 +13,7 @@ export class FiltrosComponent {
   socket: any;
 
   constructor(private constantes: Constantes) { 
-     this.socket = io('http://0.0.0.0:8080');
+     this.socket = io('http://localhost:8080');
   }
 
  private filters: Array<any> = this.constantes.filters;
