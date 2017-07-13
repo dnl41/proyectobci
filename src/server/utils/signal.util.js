@@ -14,8 +14,8 @@ module.exports = {
         });
     },
     
-    offsetForGrid (amplitude, channelNumber, channelAmount = 8, scale = 1.5) {
-        let scaledAmplitude = amplitude * Math.pow(10, scale);
+    offsetForGrid (amplitude, channelNumber, channelAmount = 8, scale = 1) {
+        let scaledAmplitude = amplitude * Math.pow(20, scale);
         let offset = 2 * (channelAmount - channelNumber) - 1;
         return parseFloat(scaledAmplitude + offset);
     },

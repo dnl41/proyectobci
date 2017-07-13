@@ -38,22 +38,26 @@ export class SignalComponent implements OnInit {
 
 
   	this.socket.on('bci:time', (signal) => {
-    //console.log(signal);
-     
-      this.dato1 = signal.amplitudes[0];
-      
-    if (signal.amplitudes[0]>200.0 && signal.amplitudes[0]< -200.0) {
-    	signal.amplitudes[0] = 0;
-    }
-  	this.line1.append(new Date().getTime(),signal.amplitudes[0] );
-  	this.chart.addTimeSeries(this.line1, {lineWidth:1.2,strokeStyle:'#50c0ff'});
-  	//this.chart.streamTo(canvas, 0);
 
-  	
+      this.appendTimeSeriesLines(signal.data);
+ 
 
     });
+
+
     
-   
+ 
+  }
+
+  appendTimeSeriesLines (data) {
+    this.line1.forEach((line, index) => {
+          data[index].forEach((amplitude) => {
+              line.append(new Date().getTime(), amplitude);
+              this.dato1 = amplitude;
+          });
+      });
+
+    this.chart.addTimeSeries(this.line1, {lineWidth:1.2,strokeStyle:'#50c0ff'});
   }
 
 }

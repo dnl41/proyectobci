@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: '', component: GraficaTiempoComponent},
   { path: 'Tiempo2', component: SignalComponent},
   { path: 'Frecuencia', component: GraficaFrecuenciaComponent},
-  { path: 'Bandas', component: BandasFrecuenciaComponent}
+  { path: 'Bandas', component: SignalComponent}
 
 ];
 

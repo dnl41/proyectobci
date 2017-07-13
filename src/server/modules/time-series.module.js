@@ -7,9 +7,9 @@ module.exports = class TimeSeries {
     
     constructor ({ Signal }) {
         this.signal = Signal;
-        this.sampleRate = constants.signal.sampleRate;
-        this.bufferSize = constants.signal.bufferSize;
-        this.windowSize = constants.signal.windowSize;
+        this.sampleRate = 250;
+        this.bufferSize = 256;
+        this.windowSize = 32;
         this.timeline = Utils.data.generateTimeline(constants.time.timeline, constants.time.skip, constants.units.seconds);
         this.timeSeries = [];
         this.amplitudes = [];
@@ -17,10 +17,12 @@ module.exports = class TimeSeries {
     }
     
     subscribe () {
-        this.signal.emitter.on(constants.events.signal, (signal) => {  
+        this.signal.emitter.on('bci:signal', (signal) => {  
             this.timeSeries = signal;
+
             this.filter();
             this.offset();
+
             this.trim();
             this.signalToAmplitudes(signal);
             this.emit();
@@ -30,16 +32,17 @@ module.exports = class TimeSeries {
     offset () {
         this.timeSeries = this.timeSeries.map((channel, channelIndex) => {
             return channel.map((amplitude) => {
-                return Utils.signal.offsetForGrid(amplitude, channelIndex, constants.connector.channels, this.signal.scale); 
+                return Utils.signal.offsetForGrid(amplitude, channelIndex,8, this.signal.scale); 
             });
         });
     }
     
     filter () {
         this.timeSeries.forEach((signal) => {
-            signal = Utils.filter.highpass(signal);
+         signal = Utils.filter.bandpass(signal);
         });
     }
+
     
     trim () {
         this.timeSeries.forEach((channel) => {
@@ -55,7 +58,7 @@ module.exports = class TimeSeries {
     }
     
     emit () {
-        this.signal.io.emit(constants.events.time, {
+        this.signal.io.emit('bci:time', {
             data: this.timeSeries,
             amplitudes: this.amplitudes,
             timeline: this.timeline

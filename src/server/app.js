@@ -20,19 +20,16 @@ io.on('connection', function(client){
     if (data=='inicio') {
 
       Conector.start().then(() => {
-         const FFT = new Modules.FFT({ Signal });
+        // const FFT = new Modules.FFT({ Signal });
          const TimeSeries = new Modules.TimeSeries({ Signal });
       });
 
       Conector.stream((data) => {
-      io.emit('bci:pura',data)
-      Signal.buffer(data);
+          Signal.buffer(data);
       });
-      console.log(data);
     } 
     
     if (data=='detener') {
-       console.log(data);
        Conector.stop();
     }
     

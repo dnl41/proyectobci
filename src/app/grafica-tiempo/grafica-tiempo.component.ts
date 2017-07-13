@@ -28,6 +28,7 @@ export class GraficaTiempoComponent implements OnInit, OnDestroy {
     this.addTimeSeriesLines();
         
     this.socket.on('bci:time', (data) => {
+      console.log(data);
       this.amplitudes = data.amplitudes;
       this.timeline = data.timeline;
       this.appendTimeSeriesLines(data.data);
@@ -36,6 +37,7 @@ export class GraficaTiempoComponent implements OnInit, OnDestroy {
   
   ngOnDestroy () {
     this.socket.removeListener('bci:time');
+
   } 
   
   ngAfterViewInit () {

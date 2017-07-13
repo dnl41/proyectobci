@@ -142,9 +142,7 @@ export class ChartService {
         },
         labels: {
             disabled: true
-        },
-        maxValue: this.getChannels().length * 2,
-        minValue: 0
+        }
     }, overrides);
   }
   

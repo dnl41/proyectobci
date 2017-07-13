@@ -38,12 +38,17 @@ module.exports = class Signal {
             this.emitter.emit('bci:signal', [...this.signals]);
             this.window();
         }
+
+
     }
     
     add (sample) {
-        console.log('sample', sample);
+        //console.log('sample', sample);
         Object.keys(sample.channelData).forEach((channel, i) => {
             this.signals[i].push(sample.channelData[channel]);
+            //////////////////////////////////////////
+           // console.log("Channel " + (i + 1) + ": " + sample.channelData[i].toFixed(8) + " Volts.");
+            //////////////////////////////////////////
         });
     }
     
@@ -58,7 +63,7 @@ module.exports = class Signal {
     
     setScale () {
         if (Utils.signal.isSimulated) {
-            this.scale = 4;
+            this.scale = 3;
         }else {
             this.scale = 1;
         }
