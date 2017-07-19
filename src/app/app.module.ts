@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { Constantes } from './Constantes/constantes';
 import { ChartService} from './shared';
 
+
 import { AppComponent } from './app.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
 
@@ -18,6 +19,7 @@ import { GraficaTiempoComponent } from './grafica-tiempo/grafica-tiempo.componen
 import { BandaFrecuenciaComponent } from './banda-frecuencia/banda-frecuencia.component';
 import { BaseChartDirective} from 'ng2-charts';
 import { CHART_DIRECTIVES} from './ng2/ng2.component';
+import { UiSwitchModule } from 'angular2-ui-switch';
 
 
 const routes: Routes = [
@@ -48,7 +50,10 @@ const routes: Routes = [
     FormsModule,
     HttpModule,
     ChartsModule,
+    UiSwitchModule,
     RouterModule.forRoot(routes)
+
+
   ],
   providers: [Constantes, ChartService],
   bootstrap: [AppComponent],

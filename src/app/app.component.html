@@ -6,13 +6,35 @@
 
  <app-filtros></app-filtros>
  <section class="content">
+
   <nav>
+
       <a routerLink="/">Tiempo</a>
       <a routerLink="/Frecuencia">Frecuencia</a> 
       <a routerLink="/Bandas">Bandas de Frecuencia</a>
 
+      
+
   </nav>
+
+<p>
+    CH1 <ui-switch switchColor="#999999" color="#4C4C4C" size="small" (change)="onChangech1()" [(ngModel)]="enable1" ></ui-switch> 
+    CH2 <ui-switch switchColor="#999999" color="#4C4C4C" size="small" (change)="onChangech2()" [(ngModel)]="enable2" ></ui-switch> 
+    CH3 <ui-switch switchColor="#999999" color="#4C4C4C" size="small" (change)="onChangech3()" [(ngModel)]="enable3" ></ui-switch> 
+    CH4 <ui-switch switchColor="#999999" color="#4C4C4C" size="small" (change)="onChangech4()" [(ngModel)]="enable4" ></ui-switch> 
+    CH5 <ui-switch switchColor="#999999" color="#4C4C4C" size="small" (change)="onChangech5()" [(ngModel)]="enable5" ></ui-switch>
+    CH6 <ui-switch switchColor="#999999" color="#4C4C4C" size="small" (change)="onChangech6()" [(ngModel)]="enable6" ></ui-switch> 
+    CH7 <ui-switch switchColor="#999999" color="#4C4C4C" size="small" (change)="onChangech7()" [(ngModel)]="enable7" ></ui-switch> 
+    CH8 <ui-switch switchColor="#999999" color="#4C4C4C"size="small" (change)="onChangech8()" [(ngModel)]="enable8" ></ui-switch> 
+
+</p>
+
+
+    <!--ui-switch color="blue"></ui-switch>
+    <ui-switch switchColor="blue"></ui-switch-->
+
       <router-outlet></router-outlet>
+
 
 </section>
 </main>
