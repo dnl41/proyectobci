@@ -52,7 +52,6 @@ module.exports = class FFT {
     }
     
     filterLabels () {
-        // Skip every 8, add uni (too many labels issue)
         this.labels = this.labels.map((label, index, labels) => {
             let eighth = index % constants.scale.skipLabels === 0;
             let last = index === (labels.length - 1);

@@ -39,11 +39,27 @@ module.exports = class Openbci_on  extends OpenBCIBoard {
     }      
 
    stop () {
-        this.streamStop().then(() => {
-            this.disconnect().then(() => {
-               // process.exit();
-            });
-        });
+
+        this.streamStop();
+            this.disconnect();
+           this.softReset();
+
+        }
+       
+
+    channel (ch) {
+
+        let [CH,value]=ch.split(':');
+        var numero = parseInt(CH);
+        if(value=='true'){
+            this.channelOn(numero);
+
+        }else{
+            this.channelOff(numero);
+
+        }
+       
+        
     }
 
     stream (callback) {

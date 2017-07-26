@@ -10,14 +10,6 @@ module.exports = {
         return array;
     },
     
-    /**
-     * generateTimeline
-     * @param size
-     * @param skip
-     * @param suffix
-     * @returns {Array.<T>}
-     */
-     
     generateTimeline (size, skip, suffix) {
         return new Array(size)
             .fill()

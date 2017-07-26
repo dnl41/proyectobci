@@ -2,6 +2,7 @@
  
 
 const io = require('socket.io')(process.env.app_port || 8080);
+var OpenBCIBoard = require('openbci').OpenBCIBoard;
 
 const Modules = require('./modules'); 
 var Conectores = require('./conexion');
@@ -20,7 +21,7 @@ io.on('connection', function(client){
     if (data=='inicio') {
 
       Conector.start().then(() => {
-        // const FFT = new Modules.FFT({ Signal });
+         const FFT = new Modules.FFT({ Signal });
          const TimeSeries = new Modules.TimeSeries({ Signal });
       });
 
@@ -32,6 +33,11 @@ io.on('connection', function(client){
     if (data=='detener') {
        Conector.stop();
     }
+    
+  });
+
+  client.on('channel', function(data){
+      Conector.channel(data);
     
   });
 });

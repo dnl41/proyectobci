@@ -19,7 +19,7 @@ import { GraficaTiempoComponent } from './grafica-tiempo/grafica-tiempo.componen
 import { BandaFrecuenciaComponent } from './banda-frecuencia/banda-frecuencia.component';
 import { BaseChartDirective} from 'ng2-charts';
 import { CHART_DIRECTIVES} from './ng2/ng2.component';
-import { UiSwitchModule } from 'angular2-ui-switch';
+import { UiSwitchModule } from '../../node_modules/angular2-ui-switch/src';
 
 
 const routes: Routes = [

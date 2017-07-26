@@ -38,15 +38,19 @@ module.exports = class TimeSeries {
     }
     
     filter () {
+
+        this.timeSeries.forEach((signal,index) => {
+            this.timeSeries[index] = Utils.filter.bandpass(this.timeSeries[index]);
+        });
         
-         this.timeSeries[0] = Utils.filter.bandpass(this.timeSeries[0]);
-         this.timeSeries[1] = this.timeSeries[0];
-         this.timeSeries[2] = this.timeSeries[0];
-         this.timeSeries[3] = this.timeSeries[0];
-         this.timeSeries[4] = this.timeSeries[0];
-         this.timeSeries[5] = this.timeSeries[0];
-         this.timeSeries[6] = this.timeSeries[0];
-         this.timeSeries[7] = this.timeSeries[0];
+         /*this.timeSeries[0] = Utils.filter.bandpass(this.timeSeries[0]);
+         this.timeSeries[1] = Utils.filter.bandpass(this.timeSeries[1]);
+         this.timeSeries[2] = Utils.filter.bandpass(this.timeSeries[2]);
+         this.timeSeries[3] = Utils.filter.bandpass(this.timeSeries[3]);
+         this.timeSeries[4] = Utils.filter.bandpass(this.timeSeries[4]);
+         this.timeSeries[5] = Utils.filter.bandpass(this.timeSeries[5]);
+         this.timeSeries[6] = Utils.filter.bandpass(this.timeSeries[6]);
+         this.timeSeries[7] = Utils.filter.bandpass(this.timeSeries[7]);*/
 
         
     }
