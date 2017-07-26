@@ -1,16 +1,18 @@
 'use strict';
 
-const Constants = require('./constants');
-const io = require('socket.io')(process.env.app_port || Constants.sockets.port);
+const constants = require('./constants');
+const io = require('socket.io')( constants.sockets.port);
 const OpenBCIBoard = require('openbci').OpenBCIBoard;
 const Connectors = require('./connection');
 const Modules = require('./modules'); 
+
 
 const Connector = new Connectors.Openbci_on ({
        verbose: true
 });
 
 const Signal = new Modules.Signal({ io });
+const SendMcu = new Modules.NET ({});
 
 io.on('connection', function(client){
   client.on('openbci', function(data){
@@ -22,15 +24,22 @@ io.on('connection', function(client){
       Connector.stream((data) => {
           Signal.buffer(data);
       });
+      
     }; 
     if (data=='detener') {
        Connector.stop();
+       constants.Mcu.send=false;
     };
   });
   client.on('channel', function(data){
+     console.log(data);
+     let [CH,value]=data.split(':');
+     constants.stateCh[CH]=value;
     Connector.channel(data);
   });
 });
+
+
 
 
 

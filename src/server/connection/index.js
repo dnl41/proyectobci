@@ -1,3 +1,5 @@
+'use strict';
+
 const Openbci_on = require('./openbci_on');
 
 module.exports = {

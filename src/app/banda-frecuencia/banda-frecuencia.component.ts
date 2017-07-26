@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import * as io from 'socket.io-client';
-import { ChartService} from '../shared';
+import { ChartService} from '../modules';
 
 @Component({
   selector: 'app-banda-frecuencia',

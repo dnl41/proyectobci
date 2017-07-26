@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, OnDestroy, Input } from '@angular/core';
 import * as io from 'socket.io-client';
-import { ChartService, Constants } from '../shared';
+import { ChartService} from '../modules';
+import { Constants } from '../constants/constants';
 //import { BaseChartDirective} from 'ng2-charts';
 
 

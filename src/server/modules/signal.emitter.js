@@ -31,7 +31,6 @@ module.exports = class Signal {
     buffer (sample) {
         this.sampleNumber++;
         this.add(sample);
-       
         if (this.sampleNumber === this.bufferSize) {
             this.emitter.emit('bci:signal', [...this.signals]);
             this.window();
@@ -39,12 +38,13 @@ module.exports = class Signal {
     }
     
     add (sample) {
-        //console.log('sample', sample);
+         if(constants.print.flag){
+            console.log('sample', sample);
+        }
+        
         Object.keys(sample.channelData).forEach((channel, i) => {
             this.signals[i].push(sample.channelData[channel]);
-            //////////////////////////////////////////
-           // console.log("Channel " + (i + 1) + ": " + sample.channelData[i].toFixed(8) + " Volts.");
-            //////////////////////////////////////////
+            //console.log("Channel " + (i + 1) + ": " + sample.channelData[i].toFixed(8) + " Volts.");
         });
     }
     

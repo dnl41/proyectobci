@@ -17,12 +17,12 @@ module.exports = {
     
     offsetForGrid (amplitude, channelNumber, channelAmount = 8, scale = 1) {
         let scaledAmplitude = amplitude * Math.pow(20, scale);
-        let offset = 2 * (channelAmount - channelNumber) - 1;
+        let offset = constants.signal.offset * (channelAmount - channelNumber) - 1;
         return parseFloat(scaledAmplitude + offset);
     },
     
     isSimulated () {
-        return !!(argv._[0] && argv._[0] === constants.simulate.flag);
+        return !!(argv._[0] && argv._[0] === 'simulated');
     }
 
     

@@ -9,20 +9,12 @@ import * as io from 'socket.io-client';
 
 
 export class Grafica1Component implements OnInit {
-
-
-
   socket: any;
   dato1: string = "";
   tamaño: number = 600;
-
   constructor() { 
   this.socket = io('http://localhost:8080')
-
   }
-
- 
-
   private amplitudes = [];
   private timeline = [];
 
@@ -32,12 +24,9 @@ export class Grafica1Component implements OnInit {
   public lineChartData2:Array<any> = [
     {data: new Array(this.tamaño)}
   ];
-
   public lineChartLabels:Array<any> =  new Array(this.tamaño);
     public lineChartOptions:any = {
     responsive: true
-
-
   };
   
   public lineChartColors:Array<any> = [
@@ -53,10 +42,6 @@ export class Grafica1Component implements OnInit {
    
   public lineChartLegend:boolean = false;
   public lineChartType:string = 'line';
-
-
-   
-
   ngOnInit() {
    // console.log(this.lineChartData[0].data.length);
     this.socket.on('bci:pura', (signal) => {
@@ -65,10 +50,7 @@ export class Grafica1Component implements OnInit {
     });
     
   	this.socket.on('bci:time', (signal) => {
-     
-      
       let _lineChartData:Array<any> = new Array(this.lineChartData.length);
-
       for (let i = 0; i < this.lineChartData.length; i++) {
          _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
          for (let j = this.lineChartData[0].data.length - 1; j > 0; j--) {

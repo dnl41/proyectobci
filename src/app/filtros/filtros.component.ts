@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as io from 'socket.io-client';
-import { Constantes } from '../Constantes/constantes';
-
+import { Constants } from '../constants';
 
 @Component({
   selector: 'app-filtros',
@@ -9,13 +8,10 @@ import { Constantes } from '../Constantes/constantes';
   styleUrls: ['./filtros.component.css']
 })
 export class FiltrosComponent {
-
   socket: any;
-
-  constructor(private constantes: Constantes) { 
+  constructor(private constantes: Constants) { 
      this.socket = io('http://localhost:8080');
   }
-
  private filters: Array<any> = this.constantes.filters;
   
   applyFilter (filter) {

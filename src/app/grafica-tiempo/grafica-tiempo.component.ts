@@ -1,7 +1,8 @@
 import { Component, ElementRef } from '@angular/core';
 import { OnInit, OnDestroy } from '@angular/core';
 import { SmoothieChart, TimeSeries } from 'smoothie';
-import { ChartService, Constants } from '../shared';
+import { ChartService} from '../modules';
+import { Constants } from '../constants';
 import * as io from 'socket.io-client';
 
 @Component({

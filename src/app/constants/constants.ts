@@ -1,30 +1,22 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class Constantes {
-
+export class Constants {
   socket: any = {
       url: 'http://localhost:8080',
       events: {
           fft: 'bci:fft',
           time: 'bci:time',
-          topo: 'bci:topo',
           filter: 'bci:filter',
-          motion: 'bci:motion'
       }
   };
-  
   filters: Array<any> = [
     { 
       id: 'NOTCH', 
-      label: 'Notch',
+      label: 'Filtro Notch',
       type: 'single',
       enabled: true,
       options: [
-        {
-          id: 'NOTCH:NONE',
-          label: 'Ninguno'
-        },
         {
           id: 'NOTCH:60',
           label: '60 Hz'
@@ -32,20 +24,21 @@ export class Constantes {
         {
           id: 'NOTCH:50',
           label: '50 Hz'
+        },
+        {
+          id: 'NOTCH:NONE',
+          label: 'Ninguno'
         }
         
       ] 
     },
     { 
       id: 'BANDPASS', 
-      label: 'Band Pass',
+      label: 'Filtro Pasa Banda',
       type: 'single',
       enabled: true,
       options: [
-         {
-          id: 'BANDPASS:NONE',
-          label: 'Ninguno'
-        },
+         
         {
           id: 'BANDPASS:1-50',
           label: '1-50 Hz'
@@ -61,15 +54,18 @@ export class Constantes {
         {
           id: 'BANDPASS:5-50',
           label: '5-50 Hz'
+        },
+        {
+          id: 'BANDPASS:NONE',
+          label: 'Ninguno'
         }
-       
       ]
     },
     { 
       id: 'VERTSCALE', 
       label: 'Vert Scale',
       type: 'single',
-      enabled: true,
+      enabled: false,
       options: [
         {
           id: 'VERTSCALE:NONE',
@@ -99,14 +95,13 @@ export class Constantes {
           id: 'VERTSCALE:10000',
           label: '10,000uV'
         }
-      
       ]  
     },
     { 
       id: 'VERTALGO', 
       label: 'Vert Algo',
       type: 'single',
-      enabled: true,
+      enabled: false,
       options: [
       {
           id: 'VERTALGO:Linear',
@@ -116,41 +111,9 @@ export class Constantes {
           id: 'VERTALGO:50',
           label: 'Log'
         }
-          
       ]
     },
-    /*{ 
-      id: 'SMOOTH', 
-      label: 'Smooth',
-      type: 'single',
-      enabled: false,
-      options: [
-        {
-          id: 'SMOOTH:0-75',
-          label: '0 75'
-        },
-        {
-          id: 'SMOOTH:0-9',
-          label: '0 9'
-        },
-        {
-          id: 'SMOOTH:0-95',
-          label: '0 95'
-        },
-        {
-          id: 'SMOOTH:0-98',
-          label: '0 98'
-        },
-        {
-          id: 'SMOOTH:0-0',
-          label: '0 0'
-        },
-        {
-          id: 'SMOOTH:0-5',
-          label: '0 5'
-        },
-      ]  
-    },
+    /*
     { 
       id: 'POLARITY', 
       label: 'Polarity',
@@ -166,31 +129,8 @@ export class Constantes {
           label: 'No'
         }
       ] 
-    },
-    { 
-      id: 'MAXFREQUENCY', 
-      label: 'Max Frequency',
-      type: 'single',
-      enabled: false,
-      options: [
-        {
-          id: 'MAXFREQUENCY:60',
-          label: '60 Hz'
-        },
-        {
-          id: 'MAXFREQUENCY:120',
-          label: '120 Hz'
-        },
-        {
-          id: 'MAXFREQUENCY:20',
-          label: '20 Hz'
-        },
-        {
-          id: 'MAXFREQUENCY:40',
-          label: '40 Hz'
-        }
-      ]
-    }*/
+    }
+    */
   ];
 
 }

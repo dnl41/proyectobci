@@ -10,12 +10,12 @@ module.exports = {
         return array;
     },
     
-    generateTimeline (size, skip, suffix) {
+    generateTimeline (size, skip) {
         return new Array(size)
             .fill()
             .map((value, index) => index)
             .filter((value, index) => index % skip === 0)
-            .map((value) => (value ? '-' : '') + value + suffix)
+            .map((value) => (value ? '-' : '') + value + 's')
             .reverse();
     }
     

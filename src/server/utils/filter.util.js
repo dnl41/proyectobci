@@ -1,7 +1,4 @@
 'use strict';
-/////////
-/////
-//
 
 var Fili = require('fili');
 
@@ -35,30 +32,9 @@ module.exports = {
         return signal;
     },
     
-    highpass (signal) {
-        
-        var iirCalculator = new Fili.CalcCascades();
-        
-        var hpFilterCoeffs = iirCalculator.highpass({
-            order: 4, // cascade 4 biquad filters (max: 12)
-            characteristic: 'butterworth',
-            Fs: 250, // sampling frequency
-            Fc: 1,
-            gain: 0, // gain for peak, lowshelf and highshelf
-            preGain: false // adds one constant multiplication for highpass and lowpass
-            // k = (1 + cos(omega)) * 0.5 / k = 1 with preGain == false
-        });
-        
-        var hpFilter = new Fili.IirFilter(hpFilterCoeffs);
-        
-        return hpFilter.multiStep(signal);
-        
-    },
     
     notch (signal) {
-            
         if (this.state.NOTCH === 'NONE') return signal;
-        
         var notchValue = parseInt(this.state.NOTCH);
         var iirCalculator = new Fili.CalcCascades();
         var notchFilterCoeffs = iirCalculator.bandstop({
@@ -72,47 +48,42 @@ module.exports = {
             preGain: false // adds one constant multiplication for highpass and lowpass
             // k = (1 + cos(omega)) * 0.5 / k = 1 with preGain == false
         });
-        
         var notchFilter = new Fili.IirFilter(notchFilterCoeffs);
-        
         return notchFilter.multiStep(signal);
     },
     
     bandpass (signal) {
+        if (this.state.BANDPASS === 'NONE') return signal;
+        let [F1, F2] = this.state.BANDPASS.split('-');
+        var f1=parseInt(F1);
+        var f2=parseInt(F2);
 
-         var iirCalculator = new Fili.CalcCascades();
+        var iirCalculator = new Fili.CalcCascades();
         var availableFilters = iirCalculator.available();
 
         var lpFilterCoeffs = iirCalculator.lowpass({
             order: 3, // cascade 3 biquad filters (max: 12)
             characteristic: 'butterworth',
             Fs: 250, // sampling frequency
-            Fc: 50,
+            Fc: f2,
             gain: 0, // gain for peak, lowshelf and highshelf
             preGain: false // adds one constant multiplication for highpass and lowpass
             // k = (1 + cos(omega)) * 0.5 / k = 1 with preGain == false
         });
-
         var lpFilter = new Fili.IirFilter(lpFilterCoeffs);
         this.signal = lpFilter.multiStep(signal);
-
         var iirCalculator = new Fili.CalcCascades();
-        
         var hpFilterCoeffs = iirCalculator.highpass({
             order: 3, // cascade 4 biquad filters (max: 12)
             characteristic: 'butterworth',
             Fs: 250, // sampling frequency
-            Fc: 1,
+            Fc: f1,
             gain: 0, // gain for peak, lowshelf and highshelf
             preGain: false // adds one constant multiplication for highpass and lowpass
             //k = (1 + cos(omega)) * 0.5 / k = 1 with preGain == false
         });
-        
         var hpFilter = new Fili.IirFilter(hpFilterCoeffs);
-        
         return hpFilter.multiStep(signal);
-        
-        // @TODO: get from state which filter to use, then return it based on state settings
     },
     
     filterBand (spectrums, labels, range) {

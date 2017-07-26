@@ -1,9 +1,11 @@
+'use strict';
+
 var argv = require('yargs').argv;
 var OpenBCIBoard = require('openbci').OpenBCIBoard;
 var OpenBCI = require('openbci-sdk');
+const constants = require('../constants');
 
 module.exports = class Openbci_on  extends OpenBCIBoard {
-   
    constructor (options) {
         super(options); 
     }
@@ -12,13 +14,19 @@ module.exports = class Openbci_on  extends OpenBCIBoard {
             var onConnect = () => {
                 this.on('ready', () => {
                     this.streamStart();
+                     for (var i = 1; i < 9; i++) {
+                            var ch = i+':'+constants.stateCh[i];
+                            //console.log(constants.stateCh[i]);
+                            console.log(ch);
+                            this.channel(ch);
+                        }
                     resolve();
                 });
             };
             this.autoFindOpenBCIBoard()
                 .then((portName) => {
                     if (portName) {
-                        this.connect(portName).then(onConnect);
+                        this.connect(portName).then(onConnect);   
                     }
                 })
                 .catch((error) => {
