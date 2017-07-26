@@ -1,4 +1,7 @@
 'use strict';
+/////////
+/////
+//
 
 var Fili = require('fili');
 
@@ -7,11 +10,11 @@ module.exports = {
     state: {
         BANDPASS: '1-50',
         NOTCH: '60',
-        VERTSCALE: '50',
-        VERTALGO: 'LOG',
-        SMOOTH: '0-75',
-        POLARITY: 'YES',
-        MAXFREQUENCY: '60'
+       // VERTSCALE: '50',
+        //VERTALGO: 'LOG',
+        //SMOOTH: '0-75',
+        //POLARITY: 'YES',
+        //MAXFREQUENCY: '60'
     },    
     
     apply (filter) {

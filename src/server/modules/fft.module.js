@@ -19,7 +19,7 @@ module.exports = class FFT {
     }
         
     subscribe () {
-        this.signal.emitter.on(constants.events.signal, (signals) => {        
+        this.signal.emitter.on('bci:signal', (signals) => {        
             this.signalsToFFT(signals);
             this.scaleLabels();
             this.filterBands();
@@ -55,12 +55,12 @@ module.exports = class FFT {
         this.labels = this.labels.map((label, index, labels) => {
             let eighth = index % constants.scale.skipLabels === 0;
             let last = index === (labels.length - 1);
-            return eighth || last ? `${label} ${constants.units.hertz}` : ``;
+            return eighth || last ? `${label} ${'Hz'}` : ``;
         });
     }
     
     emit () {
-        this.signal.io.emit(constants.events.fft, {
+        this.signal.io.emit('bci:fft', {
             data: this.spectrums,
             labels: this.labels,
             theta: this.byBand.theta.spectrums,

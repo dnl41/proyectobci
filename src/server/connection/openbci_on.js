@@ -9,15 +9,12 @@ module.exports = class Openbci_on  extends OpenBCIBoard {
     }
    start () { 
         return new Promise((resolve, reject) => {
-
-            
             var onConnect = () => {
                 this.on('ready', () => {
                     this.streamStart();
                     resolve();
                 });
             };
-            
             this.autoFindOpenBCIBoard()
                 .then((portName) => {
                     if (portName) {
@@ -28,12 +25,11 @@ module.exports = class Openbci_on  extends OpenBCIBoard {
                     console.log(error);
                     if (!!(argv._[0] && argv._[0] === 'simulate')) {
                        this.connect(OpenBCI.OpenBCIConstants.OBCISimulatorPortName)
-                      .then(onConnect);
+                       .then(onConnect);
                     }else {
-                        reject(error);
+                       reject(error);
                     }
-                });
-            
+                }); 
          });
     }      
 
@@ -41,21 +37,17 @@ module.exports = class Openbci_on  extends OpenBCIBoard {
         this.streamStop().then(() => {
             this.removeAllListeners();
             this.disconnect().then(() => {
-               // process.exit();
             });
         });
     }
 
     channel (ch) {
-
         let [CH,value]=ch.split(':');
         var numero = parseInt(CH);
         if(value=='true'){
             this.channelOn(numero);
-
         }else{
             this.channelOff(numero);
-
         }     
     }
 

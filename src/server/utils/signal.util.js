@@ -1,7 +1,8 @@
 'use strict';
 
 var argv = require('yargs').argv;
-///const constants = require('../constants');
+const constants = require('../constants');
+var flag2 = true;
 
 module.exports = {
     
@@ -21,7 +22,8 @@ module.exports = {
     },
     
     isSimulated () {
-        return !!(argv._[0] && argv._[0] === 'simulate');
+        return !!(argv._[0] && argv._[0] === constants.simulate.flag);
     }
+
     
 }

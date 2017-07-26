@@ -1,8 +1,8 @@
 'use strict';
 
 const EventEmitter = require('events');
+const constants = require('../constants');
 const Utils = require('../utils');
-//const constants = require('../constants');
 
 class SignalEmitter extends EventEmitter {}
 
@@ -11,9 +11,9 @@ module.exports = class Signal {
     constructor ({ io }) {
         this.io = io;
         this.emitter = new SignalEmitter();
-        this.bufferSize = 256;
-        this.windowSize = 32;
-        this.sampleRate = 250;
+        this.bufferSize = constants.signal.bufferSize;
+        this.windowSize = constants.signal.windowSize;
+        this.sampleRate = constants.signal.sampleRate;
         this.signals = [[],[],[],[],[],[],[],[]];
         this.sampleNumber = 0;
         this.init();
@@ -25,9 +25,7 @@ module.exports = class Signal {
               Utils.filter.apply(filter);
              });
         });
-        
-        this.setScale();
-        
+        this.setScale();   
     }
     
     buffer (sample) {
@@ -38,8 +36,6 @@ module.exports = class Signal {
             this.emitter.emit('bci:signal', [...this.signals]);
             this.window();
         }
-
-
     }
     
     add (sample) {
@@ -63,9 +59,9 @@ module.exports = class Signal {
     
     setScale () {
         if (Utils.signal.isSimulated) {
-            this.scale = 3;
+            this.scale = constants.scale.simulated;
         }else {
-            this.scale = 1;
+            this.scale = constants.scale.global;
         }
     }
     
