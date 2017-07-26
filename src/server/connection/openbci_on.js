@@ -14,7 +14,6 @@ module.exports = class Openbci_on  extends OpenBCIBoard {
             var onConnect = () => {
                 this.on('ready', () => {
                     this.streamStart();
-                    //this.on('sample', onSample);
                     resolve();
                 });
             };
@@ -39,13 +38,13 @@ module.exports = class Openbci_on  extends OpenBCIBoard {
     }      
 
    stop () {
-
-        this.streamStop();
-            this.disconnect();
-           this.softReset();
-
-        }
-       
+        this.streamStop().then(() => {
+            this.removeAllListeners();
+            this.disconnect().then(() => {
+               // process.exit();
+            });
+        });
+    }
 
     channel (ch) {
 
@@ -57,9 +56,7 @@ module.exports = class Openbci_on  extends OpenBCIBoard {
         }else{
             this.channelOff(numero);
 
-        }
-       
-        
+        }     
     }
 
     stream (callback) {

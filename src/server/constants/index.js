@@ -3,23 +3,26 @@
 module.exports = {
     connector: {
         channels: 8,
-        simulateFlag: 'simulate',
-        readyEvent: 'ready',
-        sampleEvent: 'sample'
+        //simulateFlag: 'simulate',
+        //readyEvent: 'ready',
+        //sampleEvent: 'sample'
     },
     signal: {
         bufferSize: 256,
         sampleRate: 250,
         windowSize: 32 // data has a moving window of 32 samples = 128 milliseconds (250Hz)
     },
+
     fft: {
         bins: 256
     },
+
     scale: {
         global: 1,
         simulated: 4,
-        skipLabels: 4
+        //skipLabels: 4
     },
+
     units: {
         hertz: 'Hz',
         microvolts: 'uV',
@@ -39,17 +42,10 @@ module.exports = {
     },
     events: {
         fft: 'bci:fft',
-        topo: 'bci:topo',
         time: 'bci:time',
         signal: 'bci:signal',
         filter: 'bci:filter',
-        motion: 'bci:motion',
-        terminate: 'SIGINT'
-    },
-    topo: {
-        params: [0,10,11],
-        x: [3,7,2,8,0,10,3,7], 
-        y: [0,0,3,3,8,8,10,10]
+       // terminate: 'SIGINT'
     },
     sockets: {
         port: 8080

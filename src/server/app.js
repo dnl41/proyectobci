@@ -1,43 +1,46 @@
 'use strict';
- 
 
-const io = require('socket.io')(process.env.app_port || 8080);
-var OpenBCIBoard = require('openbci').OpenBCIBoard;
+const Constants = require('./constants');
+
+const io = require('socket.io')(process.env.app_port || Constants.sockets.port);
+const OpenBCIBoard = require('openbci').OpenBCIBoard;
 
 const Modules = require('./modules'); 
-var Conectores = require('./conexion');
+const Connectors = require('./connection');
 const Providers = require('./providers');
-const Envio = require('./Envio');
 
-var Conector = new Conectores.Openbci_on ({
+
+
+const Connector = new Connectors.Openbci_on ({
        verbose: true
 });
 
+const Signal = new Modules.Signal({ io });
 
-const Signal = new Envio.Signal({ io });
+
 
 io.on('connection', function(client){
   client.on('openbci', function(data){
     if (data=='inicio') {
 
-      Conector.start().then(() => {
+      Connector.start().then(() => {
          const FFT = new Modules.FFT({ Signal });
          const TimeSeries = new Modules.TimeSeries({ Signal });
       });
 
-      Conector.stream((data) => {
+      Connector.stream((data) => {
           Signal.buffer(data);
       });
     } 
     
     if (data=='detener') {
-       Conector.stop();
+       Connector.stop();
     }
     
   });
 
   client.on('channel', function(data){
-      Conector.channel(data);
+      Connector.channel(data);
     
   });
 });
