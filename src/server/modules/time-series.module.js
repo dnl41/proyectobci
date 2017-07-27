@@ -6,10 +6,10 @@ const constants = require('../constants');
 module.exports = class TimeSeries {
     
     constructor ({ Signal }) {
+
+        this.bufferSize = constants.signal.bufferSize;
+        this.windowSize = constants.signal.windowSize;
         this.signal = Signal;
-        this.sampleRate = constants.sampleRate;
-        this.bufferSize = constants.bufferSize;
-        this.windowSize = constants.windowSize;
         this.timeline = Utils.data.generateTimeline(constants.time.timeline, constants.time.skip);
         this.timeSeries = [];
         this.amplitudes = [];
@@ -21,21 +21,21 @@ module.exports = class TimeSeries {
         this.signal.emitter.on('bci:signal', (signal) => {  
             this.timeSeries = signal;
             this.filter(); 
+            this.average();
+            this.scaleSignal();
+            this.signalToAmplitudes(signal);
             this.offset();
             this.trim();
-            this.signalToAmplitudes(signal);
-            this.average();
+            
             this.emit();
         });
     }
 
-     filter () {
-
+    filter () {
         this.timeSeries.forEach((signal,index) => {
             this.timeSeries[index] = Utils.filter.bandpass(this.timeSeries[index]);
             this.timeSeries[index] = Utils.filter.notch(this.timeSeries[index]);
         });
-        
          /*this.timeSeries[0] = Utils.filter.bandpass(this.timeSeries[0]);
          this.timeSeries[1] = Utils.filter.bandpass(this.timeSeries[1]);
          this.timeSeries[2] = Utils.filter.bandpass(this.timeSeries[2]);
@@ -46,27 +46,6 @@ module.exports = class TimeSeries {
          this.timeSeries[7] = Utils.filter.bandpass(this.timeSeries[7]);*/   
     }
 
-    
-    offset () {
-        this.timeSeries = this.timeSeries.map((channel, channelIndex) => {
-            return channel.map((amplitude) => {
-                return Utils.signal.offsetForGrid(amplitude, channelIndex,8, this.signal.scale); 
-            });
-        });
-    }
-    
-    trim () {
-        this.timeSeries.forEach((channel) => {
-            channel = channel.splice(0, this.bufferSize - this.windowSize);
-        });
-    }
-    
-    signalToAmplitudes (signal) {
-        this.amplitudes = signal.map((channel) => {
-            let microvolts = Utils.signal.voltsToMicrovolts(channel[channel.length - 1])[0];
-            return `${Math.round(microvolts)} ${constants.units.volts} `;
-        });
-    }
     average () {
         var a1 = 0;
         var a2 = 0;
@@ -82,7 +61,45 @@ module.exports = class TimeSeries {
             this.averageSignals[1][i]=a2/4;
             a2=0;
         }
+        this.averageSignals = this.averageSignals.map((channel, channelIndex) => {
+            return channel.map((amplitude) => {
+                return Utils.signal.scaleForGrid (amplitude, this.signal.scale); 
+            });
+        });
     }
+
+    scaleSignal(){
+        this.timeSeries = this.timeSeries.map((channel, channelIndex) => {
+            return channel.map((amplitude) => {
+                return Utils.signal.scaleForGrid (amplitude, this.signal.scale); 
+            });
+        });
+    }
+
+    signalToAmplitudes (signal) {
+        this.amplitudes = this.timeSeries.map((channel) => {
+           
+           // let microvolts = Utils.signal.voltsToMicrovolts(channel[channel.length - 1])[0];
+            let microvolts = Utils.signal.voltsToMicrovolts(channel[channel.length - 1])[0];
+
+            return `${(microvolts.toFixed(2))} ${constants.units.volts} `;
+        });
+    }
+
+    offset () {
+        this.timeSeries = this.timeSeries.map((channel, channelIndex) => {
+            return channel.map((amplitude) => {
+                return Utils.signal.offsetForGrid(amplitude, channelIndex); 
+            });
+        });
+    }
+    
+    trim () {
+        this.timeSeries.forEach((channel) => {
+            channel = channel.splice(0, this.bufferSize - this.windowSize);
+        });
+    }
+    
     
     emit () {
         this.signal.io.emit('bci:time', {

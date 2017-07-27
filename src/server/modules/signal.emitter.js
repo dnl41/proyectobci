@@ -1,4 +1,5 @@
 'use strict';
+var argv = require('yargs').argv;
 
 const EventEmitter = require('events');
 const constants = require('../constants');
@@ -13,7 +14,6 @@ module.exports = class Signal {
         this.emitter = new SignalEmitter();
         this.bufferSize = constants.signal.bufferSize;
         this.windowSize = constants.signal.windowSize;
-        this.sampleRate = constants.signal.sampleRate;
         this.signals = [[],[],[],[],[],[],[],[]];
         this.sampleNumber = 0;
         this.init();
@@ -38,9 +38,7 @@ module.exports = class Signal {
     }
     
     add (sample) {
-         if(constants.print.flag){
-            console.log('sample', sample);
-        }
+        if(constants.print.flag){console.log('sample', sample);}
         
         Object.keys(sample.channelData).forEach((channel, i) => {
             this.signals[i].push(sample.channelData[channel]);
@@ -58,9 +56,9 @@ module.exports = class Signal {
     }
     
     setScale () {
-        if (Utils.signal.isSimulated) {
+        if (Utils.signal.isSimulated()) {
             this.scale = constants.scale.simulated;
-        }else {
+        } else {
             this.scale = constants.scale.global;
         }
     }

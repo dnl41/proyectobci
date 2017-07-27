@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+
 import * as io from 'socket.io-client';
+import { Component, ElementRef } from '@angular/core';
+import { OnInit, OnDestroy } from '@angular/core';
+import { SmoothieChart, TimeSeries } from 'smoothie';
 
 @Component({
   selector: 'app-grafica1',
@@ -9,74 +12,84 @@ import * as io from 'socket.io-client';
 
 
 export class Grafica1Component implements OnInit {
-  socket: any;
-  dato1: string = "";
-  tamaño: number = 600;
-  constructor() { 
-  this.socket = io('http://localhost:8080')
-  }
-  private amplitudes = [];
-  private timeline = [];
+ socket: any;
+  constructor(private view: ElementRef) { 
+      this.socket = io('http://localhost:8080');
+     }
 
-  public lineChartData:Array<any> = [
-    {data: new Array(this.tamaño)}
+      public lineChartData:Array<any> = [
+    {data: new Array(32), label: 'NORMAL'},
+    {data: new Array(32), label: 'FILTRO'},
+    {data: new Array(32), label: 'FILTRO2'}
   ];
-  public lineChartData2:Array<any> = [
-    {data: new Array(this.tamaño)}
-  ];
-  public lineChartLabels:Array<any> =  new Array(this.tamaño);
-    public lineChartOptions:any = {
+  public lineChartLabels:Array<any> = new Array(32);
+  public lineChartOptions:any = {
     responsive: true
   };
-  
   public lineChartColors:Array<any> = [
-    { // 
-     backgroundColor: 'rgba(153,153,153,0)',
-     borderColor: 'rgba(0, 128, 255,7)',
-     pointBackgroundColor: 'rgba(148,159,177,0)',
-     pointBorderColor: '#0080ff',
-     pointHoverBackgroundColor: '#0080ff',
-     pointHoverBorderColor: 'rgba(0, 128, 255,0)'
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
-  ];
-   
-  public lineChartLegend:boolean = false;
-  public lineChartType:string = 'line';
-  ngOnInit() {
-   // console.log(this.lineChartData[0].data.length);
-    this.socket.on('bci:pura', (signal) => {
-    this.dato1 = signal.channelData[0];
-
-    });
-    
-  	this.socket.on('bci:time', (signal) => {
-      let _lineChartData:Array<any> = new Array(this.lineChartData.length);
-      for (let i = 0; i < this.lineChartData.length; i++) {
-         _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
-         for (let j = this.lineChartData[0].data.length - 1; j > 0; j--) {
-           _lineChartData[i].data[j-1]=this.lineChartData[i].data[j];
-      }
-      _lineChartData[i].data[this.tamaño] = signal.amplitudes[0];
+    { // dark grey
+      backgroundColor: 'rgba(77,83,96,0.2)',
+      borderColor: 'rgba(77,83,96,1)',
+      pointBackgroundColor: 'rgba(77,83,96,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(77,83,96,1)'
+    },
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
-    this.lineChartData = _lineChartData;
+  ];
+  public lineChartLegend:boolean = true;
+  public lineChartType:string = 'line';
 
+ 
+
+ ngOnInit() {
+        
+    this.socket.on('bci:time', (data) => {
+      console.log(data);
+
+       let _lineChartData:Array<any> = new Array(this.lineChartData.length);
+       for (let i = 0; i < this.lineChartData.length; i++) {
+          _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
+          }
+          for (let j = 0; j < this.lineChartData[0].data.length; j++) {
+          _lineChartData[0].data[j] = data.data[0][j]
+          }
+          for (let j = 0; j < this.lineChartData[1].data.length; j++) {
+          _lineChartData[1].data[j] = data.data[1][j]
+          }
+
+       
+     this.lineChartData = _lineChartData;
 
     });
+  }
+  
+  ngOnDestroy () {
+    this.socket.removeListener('bci:time');
+
+  } 
     
    
-  }
+ 
 
  
   
  
-  // events
-  public chartClicked(e:any):void {
-    console.log(e);
-  }
- 
-  public chartHovered(e:any):void {
-    console.log(e);
-  }
 
 
   

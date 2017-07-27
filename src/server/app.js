@@ -6,7 +6,6 @@ const OpenBCIBoard = require('openbci').OpenBCIBoard;
 const Connectors = require('./connection');
 const Modules = require('./modules'); 
 
-
 const Connector = new Connectors.Openbci_on ({
        verbose: true
 });

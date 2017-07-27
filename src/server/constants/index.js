@@ -3,9 +3,9 @@
 module.exports = {
     signal: {
         bufferSize: 256,
-        sampleRate: 250,
+        sampleRate: 250, //hz
         windowSize: 32, // data has a moving window of 32 samples = 128 milliseconds (250Hz)
-        offset: 2
+        offset: 0.2 /////0.2 to simulate, scale = 3 mv
     },
     stateCh: {
        1:true,
@@ -27,12 +27,12 @@ module.exports = {
         bins: 256
     },
     scale: {
-        global: 5,
+        global: 1,
         simulated: 3,
         skipLabels: 4 // fft labels
     },
     units: {
-        volts: 'uV',
+        volts: 'mV',
     },
     bands: { // frequency bands
         delta: [1, 3],

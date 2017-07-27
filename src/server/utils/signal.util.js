@@ -7,23 +7,31 @@ var flag2 = true;
 module.exports = {
     
     voltsToMicrovolts (volts, log) {
+
         if (!Array.isArray(volts)) {
             volts = [volts];
         }
         return volts.map((volt) => {
-            return log ? Math.log10(Math.pow(10, 6) * volt) : Math.pow(10, 6) * volt;
+            return log ? Math.log10(Math.pow(10, 6) * volt) : Math.pow(10, 1) * volt;
         });
     },
-    
-    offsetForGrid (amplitude, channelNumber, channelAmount = 8, scale = 1) {
-        let scaledAmplitude = amplitude * Math.pow(20, scale);
-        let offset = constants.signal.offset * (channelAmount - channelNumber) - 1;
-        return parseFloat(scaledAmplitude + offset);
+
+
+    scaleForGrid (amplitude, scale) {
+        let scaledAmplitude = amplitude * Math.pow(10, scale);
+        return parseFloat(scaledAmplitude);
     },
+
+    offsetForGrid (amplitude, channelNumber) {
+        let offset = constants.signal.offset * (8 - channelNumber) - 1;
+        return parseFloat(amplitude+offset);
+    },
+
     
     isSimulated () {
-        return !!(argv._[0] && argv._[0] === 'simulated');
+        return !!(argv._[0] && argv._[0] === 'simulate');
     }
+    
 
     
 }

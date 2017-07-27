@@ -15,15 +15,16 @@ import { BandaFrecuenciaComponent } from './banda-frecuencia/banda-frecuencia.co
 import { BandasFrecuenciaComponent } from './bandas-frecuencia/bandas-frecuencia.component';
 import { GraficaFrecuenciaComponent } from './grafica-frecuencia/grafica-frecuencia.component';
 import { GraficaTiempoComponent } from './grafica-tiempo/grafica-tiempo.component';
+import { AverageComponent } from './average/average.component';
 // component test
 import { Grafica1Component } from './grafica1/grafica1.component';
 import { SignalComponent } from './signal/signal.component';
-
 
 const routes: Routes = [
   { path: '', component: GraficaTiempoComponent},
   { path: 'Frecuencia', component: GraficaFrecuenciaComponent},
   { path: 'Bandas', component: BandasFrecuenciaComponent},
+  { path: 'Promedios', component: AverageComponent},
   { path: '1', component: SignalComponent},
   { path: '2', component: Grafica1Component}
 ];
@@ -39,7 +40,9 @@ const routes: Routes = [
     CHART_DIRECTIVES,
 
     Grafica1Component,
-    SignalComponent
+    SignalComponent,
+    AverageComponent,
+    AverageComponent
   ],
   imports: [
     BrowserModule,

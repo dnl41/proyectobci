@@ -1,9 +1,10 @@
 'use strict';
 
 var Fili = require('fili');
+const constants = require('../constants');
 
 module.exports = {
-    
+
     state: {
         BANDPASS: '1-50',
         NOTCH: '60',
@@ -40,7 +41,7 @@ module.exports = {
         var notchFilterCoeffs = iirCalculator.bandstop({
             order: 2, // cascade 3 biquad filters (max: 12)
             characteristic: 'butterworth',
-            Fs: 250, // sampling frequency
+            Fs: constants.signal.sampleRate, // sampling frequency 250hz
             Fc: notchValue,
             F1: notchValue - 1,
             F2: notchValue + 1,
@@ -64,7 +65,7 @@ module.exports = {
         var lpFilterCoeffs = iirCalculator.lowpass({
             order: 3, // cascade 3 biquad filters (max: 12)
             characteristic: 'butterworth',
-            Fs: 250, // sampling frequency
+            Fs: constants.signal.sampleRate, // sampling frequency
             Fc: f2,
             gain: 0, // gain for peak, lowshelf and highshelf
             preGain: false // adds one constant multiplication for highpass and lowpass
@@ -76,7 +77,7 @@ module.exports = {
         var hpFilterCoeffs = iirCalculator.highpass({
             order: 3, // cascade 4 biquad filters (max: 12)
             characteristic: 'butterworth',
-            Fs: 250, // sampling frequency
+            Fs: constants.signal.sampleRate, // sampling frequency
             Fc: f1,
             gain: 0, // gain for peak, lowshelf and highshelf
             preGain: false // adds one constant multiplication for highpass and lowpass

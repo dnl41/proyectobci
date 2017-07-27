@@ -17,7 +17,6 @@ module.exports = class Openbci_on  extends OpenBCIBoard {
                      for (var i = 1; i < 9; i++) {
                             var ch = i+':'+constants.stateCh[i];
                             //console.log(constants.stateCh[i]);
-                            console.log(ch);
                             this.channel(ch);
                         }
                     resolve();
