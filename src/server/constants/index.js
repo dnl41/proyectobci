@@ -27,7 +27,7 @@ module.exports = {
         bins: 256
     },
     scale: {
-        global: 1,
+        global: 3,
         simulated: 3,
         skipLabels: 4 // fft labels
     },
