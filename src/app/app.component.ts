@@ -19,6 +19,7 @@ export class AppComponent  {
   enable6: boolean = true;
   enable7: boolean = true;
   enable8: boolean = true;
+  enable9: boolean = true;
 
    constructor(private view: ElementRef,
                 private constants: Constants ){
@@ -35,6 +36,7 @@ export class AppComponent  {
   onChangech6() {this.socket.emit('channel','6:'+ !this.enable6);}
   onChangech7() {this.socket.emit('channel','7:'+ !this.enable7);}
   onChangech8() {this.socket.emit('channel','8:'+ !this.enable8);}
+  onChangech9() {this.socket.emit('channel','blink');}
 }
 
 

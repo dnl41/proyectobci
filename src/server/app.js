@@ -23,18 +23,21 @@ io.on('connection', function(client){
       Connector.stream((data) => {
           Signal.buffer(data);
       });
-      
     }; 
     if (data=='detener') {
        Connector.stop();
-       constants.Mcu.send=false;
     };
   });
   client.on('channel', function(data){
-     console.log(data);
+     
+    if (data=='blink') {
+       SendMcu.send();
+    }else{
+      console.log(data);
      let [CH,value]=data.split(':');
      constants.stateCh[CH]=value;
     Connector.channel(data);
+    }
   });
 });
 

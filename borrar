@@ -1,0 +1,47 @@
+'use strict';
+
+var net = require('net');
+const constants = require('../constants');
+var port = 3000;
+//var server = net.createServer();
+var conectado = true;
+var server = new net.Socket();
+
+
+
+module.exports = class NET {
+    
+constructor () {
+    server.listen(port, () => {
+           console.log('server bound');
+    });
+    this.init();
+
+    
+};  
+
+init(){
+
+    server.on('connection', function(socket) { //This is a standard net.Socket
+       console.log("conectado");
+       socket.write("Thank you");
+       conectado=true;
+      
+    });
+    if(conectado) {
+        this.socket.write("");
+    }
+
+  
+};
+
+send(){
+    //server.on(){ //This is a standard net.Socket
+      // console.log("conectado");
+       //socket.write("Thank you");
+    ;//
+   
+
+};
+
+};

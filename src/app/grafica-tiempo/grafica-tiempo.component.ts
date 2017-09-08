@@ -12,6 +12,8 @@ import * as io from 'socket.io-client';
 })
 export class GraficaTiempoComponent implements OnInit, OnDestroy {
  socket: any;
+ bandera = false;
+ cont =0;
   constructor(private view: ElementRef,
   	          private chartService: ChartService) { 
       this.socket = io('http://localhost:8080');
@@ -29,7 +31,6 @@ export class GraficaTiempoComponent implements OnInit, OnDestroy {
     this.addTimeSeriesLines();
         
     this.socket.on('bci:time', (data) => {
-      console.log(data);
       this.amplitudes = data.amplitudes;
       this.timeline = data.timeline;
       this.appendTimeSeriesLines(data.data);
@@ -59,6 +60,24 @@ export class GraficaTiempoComponent implements OnInit, OnDestroy {
     this.lines.forEach((line, index) => {
           data[index].forEach((amplitude) => {
               line.append(new Date().getTime(), amplitude);
+              if(index==1){
+                if(amplitude<(0.34)){
+                  this.bandera = true;
+                }
+                if(this.bandera == true){
+                  this.cont++;
+                  if (this.cont == 1){
+                     this.socket.emit('channel','blink');
+                  }
+                  if(this.cont>120){
+                    
+                    
+                    this.cont=0;
+                    this.bandera=false;
+                  }
+
+                }
+              }
           });
       });
   }
