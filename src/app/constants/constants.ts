@@ -63,40 +63,45 @@ export class Constants {
     },
     { 
       id: 'VERTSCALE', 
-      label: 'Vert Scale',
+      label: 'Tiempo de escritura de datos',
       type: 'single',
-      enabled: false,
+      enabled: true,
       options: [
         {
-          id: 'VERTSCALE:NONE',
-          label: 'Ninguno'
+          id: 'tiempo:14s',
+          label: '14s'
         },    
         {
-          id: 'VERTSCALE:50',
-          label: '50uV'
+          id: 'tiempo:5m',
+          label: '5m'
         },
         {
-          id: 'VERTSCALE:100',
-          label: '100uV'
+          id: 'tiempo:15m',
+          label: '15m'
         },
         {
-          id: 'VERTSCALE:200',
-          label: '200uV'
+          id: 'tiempo:30m',
+          label: '30m'
         },
         {
-          id: 'VERTSCALE:400',
-          label: '400uV'
+          id: 'tiempo:1h',
+          label: '1h'
         },
         {
-          id: 'VERTSCALE:1000',
-          label: '1000uV'
+          id: 'tiempo:4h',
+          label: '4h'
         },
         {
-          id: 'VERTSCALE:10000',
-          label: '10,000uV'
+          id: 'tiempo:12h',
+          label: '12h'
+        },
+        {
+          id: 'tiempo:24h',
+          label: '24h'
         }
       ]  
     },
+     /*
     { 
       id: 'VERTALGO', 
       label: 'Vert Algo',
@@ -113,7 +118,7 @@ export class Constants {
         }
       ]
     },
-    /*
+   
     { 
       id: 'POLARITY', 
       label: 'Polarity',

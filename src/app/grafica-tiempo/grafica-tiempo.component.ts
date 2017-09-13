@@ -58,10 +58,11 @@ export class GraficaTiempoComponent implements OnInit, OnDestroy {
   
   appendTimeSeriesLines (data) {
     this.lines.forEach((line, index) => {
+          console.log(data[1]);
           data[index].forEach((amplitude) => {
               line.append(new Date().getTime(), amplitude);
               if(index==1){
-                if(amplitude<(0.34)){
+                if(amplitude>(0.43)){
                   this.bandera = true;
                 }
                 if(this.bandera == true){

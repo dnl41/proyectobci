@@ -3,16 +3,17 @@
 }
 
 .filters {
-  width: 120px;
+  width: 140px;
   height: 100vh;
-  padding: 14px;
+  padding: 20px;
   background-color: #ffffff;
+
 
 }
 
 .filters h3 {
   font-weight: 500;
-  margin-top: 10px;
+  margin-top: 80px;
 }
 
 .filters article {

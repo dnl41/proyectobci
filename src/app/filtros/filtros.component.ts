@@ -9,6 +9,7 @@ import { Constants } from '../constants';
 })
 export class FiltrosComponent {
   socket: any;
+  guardar: boolean = false;
   constructor(private constantes: Constants) { 
      this.socket = io('http://localhost:8080');
   }
@@ -25,6 +26,8 @@ export class FiltrosComponent {
     this.socket.emit('openbci',"detener");  
     console.log("detener")
   }
+
+  onChangech14() {}
 
 
 

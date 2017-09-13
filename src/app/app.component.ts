@@ -19,7 +19,7 @@ export class AppComponent  {
   enable6: boolean = true;
   enable7: boolean = true;
   enable8: boolean = true;
-  enable9: boolean = true;
+  enable9: boolean = false;
 
    constructor(private view: ElementRef,
                 private constants: Constants ){

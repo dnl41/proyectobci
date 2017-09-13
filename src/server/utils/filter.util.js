@@ -26,7 +26,7 @@ module.exports = {
             let filter = key.toLowerCase();
             if (filter in this && typeof this[filter] === 'function') {
                 // @TODO: apply all filters dynamically
-                //signal = this[filter](signal);
+                signal = this[filter](signal);
             }
         });
         signal = this.notch(signal);

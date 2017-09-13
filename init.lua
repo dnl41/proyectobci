@@ -5,10 +5,10 @@ function receiver(sck, data)
   if data == "blink" then
     if status == gpio.HIGH then
         status = gpio.LOW
-        pwm.setduty(pin, 0);  --27
+        pwm.setduty(pin, 27);  --27
     else
         status = gpio.HIGH
-        pwm.setduty(pin, 512); --123
+        pwm.setduty(pin, 123); --123
     end
 
     gpio.write(led, status)
@@ -17,7 +17,7 @@ function receiver(sck, data)
 end
 
 function startup()
-   gpio.write(pin, gpio.LOW)
+   --gpio.write(pin, gpio.LOW)
    sv=net.createServer(net.TCP, 0)
    if sv then
     sv:listen(3000, function(conn)
@@ -30,8 +30,10 @@ end
 print("Ready to start soft ap")
 local str=wifi.ap.getmac();
 
-pwm.setup(4, 500, 512)
-pwm.start(4); 
+pin = 4
+led = 0
+pwm.setup(pin, 50, 27)
+pwm.start(pin); 
 
 cfg={}
 cfg.ssid="Daniel";
@@ -44,11 +46,10 @@ cfg.netmask="255.255.255.0";
 cfg.gateway="192.168.1.1";
 wifi.ap.setip(cfg);
 wifi.setmode(wifi.SOFTAP)
-pin = 4
-led = 0
+
 local status = gpio.HIGH
  
-gpio.mode(pin, gpio.OUTPUT)
+--gpio.mode(pin, gpio.OUTPUT)
 gpio.mode(led, gpio.OUTPUT)
    
 gpio.write(pin, status)

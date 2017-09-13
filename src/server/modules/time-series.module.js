@@ -35,15 +35,7 @@ module.exports = class TimeSeries {
         this.timeSeries.forEach((signal,index) => {
             this.timeSeries[index] = Utils.filter.bandpass(this.timeSeries[index]);
             this.timeSeries[index] = Utils.filter.notch(this.timeSeries[index]);
-        });
-         /*this.timeSeries[0] = Utils.filter.bandpass(this.timeSeries[0]);
-         this.timeSeries[1] = Utils.filter.bandpass(this.timeSeries[1]);
-         this.timeSeries[2] = Utils.filter.bandpass(this.timeSeries[2]);
-         this.timeSeries[3] = Utils.filter.bandpass(this.timeSeries[3]);
-         this.timeSeries[4] = Utils.filter.bandpass(this.timeSeries[4]);
-         this.timeSeries[5] = Utils.filter.bandpass(this.timeSeries[5]);
-         this.timeSeries[6] = Utils.filter.bandpass(this.timeSeries[6]);
-         this.timeSeries[7] = Utils.filter.bandpass(this.timeSeries[7]);*/   
+        });  
     }
 
     average () {
@@ -58,7 +50,7 @@ module.exports = class TimeSeries {
             for (let k = 1; k < 8; k+=2) { 
               a2 += this.timeSeries[k][i]; 
             }
-            this.averageSignals[1][i]=a2/4;
+            this.averageSignals[1][i]=(a2/4)+(0.0001);
             a2=0;
         }
         this.averageSignals = this.averageSignals.map((channel, channelIndex) => {

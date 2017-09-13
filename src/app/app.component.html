@@ -8,7 +8,6 @@
       <a routerLink="/Frecuencia">Frecuencia</a> 
       <a routerLink="/Bandas">Bandas de Frecuencia</a>
       <a routerLink="/Promedios">Promedios</a>
-    </nav>
     <p>
       CH1 <ui-switch switchColor="#999999" color="#4C4C4C" size="small" (change)="onChangech1()" [(ngModel)]="enable1" ></ui-switch> 
       CH2 <ui-switch switchColor="#999999" color="#4C4C4C" size="small" (change)="onChangech2()" [(ngModel)]="enable2" ></ui-switch> 
@@ -18,8 +17,9 @@
       CH6 <ui-switch switchColor="#999999" color="#4C4C4C" size="small" (change)="onChangech6()" [(ngModel)]="enable6" ></ui-switch> 
       CH7 <ui-switch switchColor="#999999" color="#4C4C4C" size="small" (change)="onChangech7()" [(ngModel)]="enable7" ></ui-switch> 
       CH8 <ui-switch switchColor="#999999" color="#4C4C4C"size="small" (change)="onChangech8()" [(ngModel)]="enable8" ></ui-switch> 
-       .i.(O_O).i. <ui-switch switchColor="#999999" color="#4C4C4C"size="small" (change)="onChangech9()" [(ngModel)]="enable9" ></ui-switch> {{enable9}}
+      ACTIVACION DE SERVO <ui-switch switchColor="#999999" color="#4C4C4C"size="small" (change)="onChangech9()" [(ngModel)]="enable9" ></ui-switch> 
     </p>
+    </nav>
     <!--ui-switch color="blue"></ui-switch>
     <ui-switch switchColor="blue"></ui-switch-->
     <router-outlet></router-outlet>

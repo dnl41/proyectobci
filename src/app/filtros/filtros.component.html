@@ -1,6 +1,6 @@
 <aside class="filters">
   
-  <h3>Filtros</h3>
+  <h3>Configuraciones</h3>
   <nav>
     <article *ngFor="let filter of filters" 
              [ngClass]="{ disabled: !filter.enabled }">
@@ -18,6 +18,11 @@
       </div>
     </article>
   </nav>
-  <button (click)="clicked()">Inicio</button>
+  <p> Escritura de Datos</p>
+  <button (click)="clicked3()">Grabar</button>
+  <button (click)="clicked4()">Parar</button>
+  <p> Control de Sistema</p>
+  <button (click)="clicked()">Iniciar</button>
   <button (click)="clicked2()">Detener</button>
+  
 </aside>
